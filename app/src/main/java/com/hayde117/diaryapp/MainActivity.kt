@@ -1,11 +1,14 @@
-package com.stevdzasan.diaryapp
+package com.hayde117.diaryapp
 
 import android.os.Build
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
-import com.stevdzasan.diaryapp.ui.theme.DiaryAppTheme
+import androidx.navigation.compose.rememberNavController
+import com.hayde117.diaryapp.navigation.Screen
+import com.hayde117.diaryapp.navigation.SetUpNavGraph
+import com.hayde117.diaryapp.ui.theme.DiaryAppTheme
 
 class MainActivity : ComponentActivity() {
 
@@ -13,7 +16,9 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         installSplashScreen()
         setContent {
-            DiaryAppTheme() {
+            DiaryAppTheme {
+                val navController = rememberNavController()
+                SetUpNavGraph(startDestination = Screen.Authentication.route, navController =navController )
             }
         }
     }

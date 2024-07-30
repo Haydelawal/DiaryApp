@@ -1,4 +1,4 @@
-package com.stevdzasan.diaryapp
+package com.hayde117.diaryapp
 
 import org.junit.Test
 

@@ -4,15 +4,15 @@ plugins {
     id 'kotlin-kapt'
     id 'dagger.hilt.android.plugin'
     id 'io.realm.kotlin'
-    id 'com.google.gms.google-services'
+//    id 'com.google.gms.google-services'
 }
 
 android {
-    namespace 'com.stevdzasan.diaryapp'
+    namespace 'com.hayde117.diaryapp'
     compileSdk 33
 
     defaultConfig {
-        applicationId "com.stevdzasan.diaryapp"
+        applicationId "com.hayde117.diaryapp"
         minSdk 21
         targetSdk 33
         versionCode 1
