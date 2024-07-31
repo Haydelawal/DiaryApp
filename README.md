@@ -1,1 +1,1 @@
-designed auth screen
+designed google auth screen
