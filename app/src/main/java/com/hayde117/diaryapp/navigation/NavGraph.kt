@@ -1,6 +1,5 @@
 package com.hayde117.diaryapp.navigation
 
-import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.runtime.Composable
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.NavHostController
@@ -10,6 +9,8 @@ import androidx.navigation.compose.composable
 import androidx.navigation.navArgument
 import com.hayde117.diaryapp.presentation.screens.auth.AuthenticationScreen
 import com.hayde117.diaryapp.utils.Constants.WRITE_SCREEN_ARGUMENT_KEY
+import com.stevdzasan.messagebar.rememberMessageBarState
+import com.stevdzasan.onetap.rememberOneTapSignInState
 
 @Composable
 fun SetUpNavGraph(startDestination: String, navController: NavHostController){
@@ -27,9 +28,18 @@ fun SetUpNavGraph(startDestination: String, navController: NavHostController){
 
 fun NavGraphBuilder.authenticationRoute(){
     composable(route = Screen.Authentication.route){
+        val oneTapState = rememberOneTapSignInState()
+        val messageBarState = rememberMessageBarState()
 
         /** hard coding value of false temporarily*/
-        AuthenticationScreen(loadingState = false, onButtonClicked = {})
+        AuthenticationScreen(
+            loadingState = oneTapState.opened,
+            oneTapState = oneTapState,
+            onButtonClicked = {
+                oneTapState.open()
+            },
+            messageBarState = messageBarState
+        )
     }
 }
 fun NavGraphBuilder.homeRoute(){
