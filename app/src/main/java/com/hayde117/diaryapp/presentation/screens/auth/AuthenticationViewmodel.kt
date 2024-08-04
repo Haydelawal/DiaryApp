@@ -16,6 +16,9 @@ import javax.inject.Inject
 
 class AuthenticationViewmodel (): ViewModel() {
 
+    var authenticated = mutableStateOf(false)
+        private set
+
     var loadingState = mutableStateOf(false)
         private set
 
@@ -39,8 +42,8 @@ class AuthenticationViewmodel (): ViewModel() {
                 withContext(Dispatchers.Main) {
 //                    if (result) {
                         onSuccess(result)
-//                        delay(600)
-//                        authenticated.value = true
+                        delay(600)
+                        authenticated.value = true
 //                    } else {
 //                        onError(Exception("User is not logged in."))
 //                    }

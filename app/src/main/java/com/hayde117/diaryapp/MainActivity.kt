@@ -9,6 +9,8 @@ import androidx.navigation.compose.rememberNavController
 import com.hayde117.diaryapp.navigation.Screen
 import com.hayde117.diaryapp.navigation.SetUpNavGraph
 import com.hayde117.diaryapp.ui.theme.DiaryAppTheme
+import com.hayde117.diaryapp.utils.Constants.APP_ID
+import io.realm.kotlin.mongodb.App
 
 class MainActivity : ComponentActivity() {
 
@@ -18,9 +20,18 @@ class MainActivity : ComponentActivity() {
         setContent {
             DiaryAppTheme {
                 val navController = rememberNavController()
-                SetUpNavGraph(startDestination = Screen.Authentication.route, navController =navController )
+                SetUpNavGraph(
+                    startDestination = getStartDestination(),
+                    navController = navController
+                )
             }
         }
     }
+}
+
+private fun getStartDestination(): String {
+    val user = App.create(APP_ID).currentUser
+    return if (user != null && user.loggedIn) Screen.HOME.route
+    else Screen.Authentication.route
 }
 
