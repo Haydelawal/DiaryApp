@@ -1,15 +1,7 @@
 package com.hayde117.diaryapp.navigation
 
-import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.material3.Button
-import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.rememberCoroutineScope
-import androidx.compose.ui.Alignment
-import androidx.compose.ui.Modifier
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.NavHostController
@@ -19,28 +11,25 @@ import androidx.navigation.compose.composable
 import androidx.navigation.navArgument
 import com.hayde117.diaryapp.presentation.screens.auth.AuthenticationScreen
 import com.hayde117.diaryapp.presentation.screens.auth.AuthenticationViewmodel
-import com.hayde117.diaryapp.utils.Constants.APP_ID
+import com.hayde117.diaryapp.presentation.screens.home.HomeScreen
 import com.hayde117.diaryapp.utils.Constants.WRITE_SCREEN_ARGUMENT_KEY
 import com.stevdzasan.messagebar.rememberMessageBarState
 import com.stevdzasan.onetap.rememberOneTapSignInState
-import io.realm.kotlin.mongodb.App
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
 
 @Composable
-fun SetUpNavGraph(startDestination: String, navController: NavHostController){
+fun SetUpNavGraph(startDestination: String, navController: NavHostController) {
 
     NavHost(
-        navController= navController,
-        startDestination= startDestination,
-        ){
+        navController = navController,
+        startDestination = startDestination,
+    ) {
         authenticationRoute(
             navigateToHome = {
                 navController.popBackStack()
                 navController.navigate(Screen.HOME.route)
             }
         )
-        homeRoute()
+        homeRoute(navigateToWrite = { navController.navigate(Screen.WRITE.route) })
         writeRoute()
     }
 
@@ -48,8 +37,8 @@ fun SetUpNavGraph(startDestination: String, navController: NavHostController){
 
 fun NavGraphBuilder.authenticationRoute(
     navigateToHome: () -> Unit
-){
-    composable(route = Screen.Authentication.route){
+) {
+    composable(route = Screen.Authentication.route) {
 
         val viewmodel: AuthenticationViewmodel = viewModel()
         val authenticated by viewmodel.authenticated
@@ -59,7 +48,7 @@ fun NavGraphBuilder.authenticationRoute(
         val messageBarState = rememberMessageBarState()
 
         AuthenticationScreen(
-            authenticated= authenticated,
+            authenticated = authenticated,
             loadingState = loadingState,
             oneTapState = oneTapState,
             onButtonClicked = {
@@ -89,37 +78,27 @@ fun NavGraphBuilder.authenticationRoute(
         )
     }
 }
-fun NavGraphBuilder.homeRoute(){
-    composable(route = Screen.HOME.route){
 
-        // dummy log out code, will be removed later
-        val scope = rememberCoroutineScope()
+fun NavGraphBuilder.homeRoute(
+    navigateToWrite: () -> Unit,
 
-        Column(
-            modifier = Modifier.fillMaxSize(),
-            verticalArrangement = Arrangement.Center,
-            horizontalAlignment = Alignment.CenterHorizontally
-        ){
-            Button(onClick = {
-                scope.launch(Dispatchers.IO) {
-                    App.create(APP_ID).currentUser?.logOut()
-                }
-            }) {
-                Text(text = "Log Out")
-            }
-        }
+    ) {
+    composable(route = Screen.HOME.route) {
 
+        HomeScreen(onMenuClicked = {}, navigateToWrite = navigateToWrite)
 
     }
 }
-fun NavGraphBuilder.writeRoute(){
-    composable(route = Screen.WRITE.route,
+
+fun NavGraphBuilder.writeRoute() {
+    composable(
+        route = Screen.WRITE.route,
         arguments = listOf(navArgument(name = WRITE_SCREEN_ARGUMENT_KEY) {
             type = NavType.StringType
             nullable = true
             defaultValue = null
         })
-    ){
+    ) {
 
     }
 }

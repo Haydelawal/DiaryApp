@@ -105,6 +105,7 @@ fun DiaryAppTheme(
         }
     }
 
+    /** Transparent status and Nav Bar*/
     SideEffect {
         val window = (view.context as Activity).window
 
@@ -120,6 +121,8 @@ fun DiaryAppTheme(
         windowsInsetsController.isAppearanceLightStatusBars = !darkTheme
         windowsInsetsController.isAppearanceLightNavigationBars = !darkTheme
     }
+    /** Transparent status and Nav Bar*/
+
 
     MaterialTheme(
         colorScheme = colorScheme,
