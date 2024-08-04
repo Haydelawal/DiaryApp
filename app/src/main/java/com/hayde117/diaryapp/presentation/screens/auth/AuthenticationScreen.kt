@@ -21,10 +21,11 @@ fun AuthenticationScreen(
     onButtonClicked: () -> Unit,
     oneTapState:OneTapSignInState,
     messageBarState: MessageBarState,
-
+    onTokenIdReceived: (String) -> Unit,
+    onDialogDismissed: (String) -> Unit,
     ) {
 
-    ContentWithMessageBar(messageBarState = messageBarState) {
+    ContentWithMessageBar(messageBarState = messageBarState, errorMaxLines = 3) {
         AuthenticationContent(
             loadingState = loadingState,
             onButtonClicked = onButtonClicked
@@ -44,12 +45,13 @@ fun AuthenticationScreen(
 //                        task.exception?.let { it -> onFailedFirebaseSignIn(it) }
 //                    }
 //                }
-            Log.d("Auth", tokenId)
-            messageBarState.addSuccess("Successfully Authenticated!")
+//            messageBarState.addSuccess("Successfully Authenticated!")
+
+            onTokenIdReceived(tokenId)
+
         },
         onDialogDismissed = { message ->
-
-            Log.d("Auth fail", message)
+            onDialogDismissed(message)
             messageBarState.addError(Exception(message))
 
 //            onDialogDismissed(message)
