@@ -14,7 +14,7 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
-class AuthenticationViewmodel (): ViewModel() {
+class AuthenticationViewmodel() : ViewModel() {
 
     var authenticated = mutableStateOf(false)
         private set
@@ -28,7 +28,7 @@ class AuthenticationViewmodel (): ViewModel() {
 
     fun signInWithMongoAtlas(
         tokenId: String,
-        onSuccess: (Boolean) -> Unit,
+        onSuccess: () -> Unit,
         onError: (Exception) -> Unit
     ) {
         viewModelScope.launch {
@@ -36,17 +36,17 @@ class AuthenticationViewmodel (): ViewModel() {
                 val result = withContext(Dispatchers.IO) {
                     App.create(APP_ID).login(
                         Credentials.jwt(tokenId)
-                      //  Credentials.google(tokenId, GoogleAuthType.ID_TOKEN)
+                        //  Credentials.google(tokenId, GoogleAuthType.ID_TOKEN)
                     ).loggedIn
                 }
                 withContext(Dispatchers.Main) {
-//                    if (result) {
-                        onSuccess(result)
+                    if (result) {
+                        onSuccess()
                         delay(600)
                         authenticated.value = true
-//                    } else {
-//                        onError(Exception("User is not logged in."))
-//                    }
+                    } else {
+                        onError(Exception("User is not logged in."))
+                    }
                 }
             } catch (e: Exception) {
                 withContext(Dispatchers.Main) {
