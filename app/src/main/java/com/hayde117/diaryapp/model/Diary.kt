@@ -7,7 +7,7 @@ import io.realm.kotlin.types.RealmList
 import io.realm.kotlin.types.RealmObject
 import io.realm.kotlin.types.annotations.PrimaryKey
 
-class Diary : RealmObject {
+open class Diary : RealmObject {
 
     /** For Realm Object you have to declare them as var and this format in general, normal data class wont work **/
 

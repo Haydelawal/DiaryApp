@@ -1,0 +1,40 @@
+// Mongo Json Schema
+
+{
+    "title": "Diary",
+    "bsonType": "object",
+    "required": [
+    "_id",
+    "ownerId",
+    "mood",
+    "title",
+    "description",
+    "date"
+    ],
+    "properties": {
+    "_id": {
+    "bsonType": "objectId"
+},
+    "ownerId": {
+    "bsonType": "string"
+},
+    "mood": {
+    "bsonType": "string"
+},
+    "title": {
+    "bsonType": "string"
+},
+    "description": {
+    "bsonType": "string"
+},
+    "newImages": {
+    "bsonType": "array",
+    "items": {
+    "bsonType": "string"
+}
+},
+    "date": {
+    "bsonType": "date"
+}
+}
+}
