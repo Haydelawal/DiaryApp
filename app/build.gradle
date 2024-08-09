@@ -33,6 +33,8 @@ android {
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
+
+        // for local date in Diary Holder.kt
         coreLibraryDesugaringEnabled true
     }
     kotlinOptions {
@@ -118,6 +120,7 @@ dependencies {
     implementation 'com.github.stevdza-san:OneTapCompose:1.0.0'
 
     // Desugar JDK
+    // for local date in Diary Holder.kt
     coreLibraryDesugaring 'com.android.tools:desugar_jdk_libs:1.2.0'
 
 }
