@@ -19,6 +19,7 @@ import com.hayde117.diaryapp.presentation.components.DisplayAlertDialog
 import com.hayde117.diaryapp.presentation.screens.auth.AuthenticationScreen
 import com.hayde117.diaryapp.presentation.screens.auth.AuthenticationViewmodel
 import com.hayde117.diaryapp.presentation.screens.home.HomeScreen
+import com.hayde117.diaryapp.presentation.screens.home.HomeViewModel
 import com.hayde117.diaryapp.utils.Constants.APP_ID
 import com.hayde117.diaryapp.utils.Constants.WRITE_SCREEN_ARGUMENT_KEY
 import com.stevdzasan.messagebar.rememberMessageBarState
@@ -100,13 +101,18 @@ fun NavGraphBuilder.homeRoute(
     navigateToAuth: () -> Unit,
 ) {
     composable(route = Screen.HOME.route) {
+        val viewModel: HomeViewModel = viewModel()
+        val diaries by viewModel.diaries
+
         val drawerState = rememberDrawerState(initialValue = DrawerValue.Closed)
         var signOutDialogOpened by remember {
             mutableStateOf(false)
         }
         val scope = rememberCoroutineScope()
 
-        HomeScreen(onMenuClicked = {
+        HomeScreen(
+            diaries = diaries,
+            onMenuClicked = {
             scope.launch(Dispatchers.IO) {
                 drawerState.open()
             }

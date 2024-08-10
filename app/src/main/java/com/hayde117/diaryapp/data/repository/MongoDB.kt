@@ -1,11 +1,20 @@
 package com.hayde117.diaryapp.data.repository
 
+import android.util.Log
 import com.hayde117.diaryapp.model.Diary
 import com.hayde117.diaryapp.utils.Constants.APP_ID
+import com.hayde117.diaryapp.utils.RequestState
+import com.hayde117.diaryapp.utils.toInstant
 import io.realm.kotlin.Realm
 import io.realm.kotlin.ext.query
+import io.realm.kotlin.log.LogLevel
 import io.realm.kotlin.mongodb.App
 import io.realm.kotlin.mongodb.sync.SyncConfiguration
+import io.realm.kotlin.query.Sort
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.flow
+import kotlinx.coroutines.flow.map
+import java.time.ZoneId
 
 object MongoDB: MongoRepository {
 
@@ -29,9 +38,38 @@ object MongoDB: MongoRepository {
                         name = "User's Diaries"
                     )
                 }
-//                .log(LogLevel.ALL)
+                .log(LogLevel.ALL)
                 .build()
             realm = Realm.open(config)
         }
     }
+
+
+    override fun getAllDiaries(): Flow<Diaries> {
+        return if (user != null) {
+            try {
+                realm.query<Diary>(query = "ownerId == $0", user.identity)
+                    .sort(property = "date", sortOrder = Sort.DESCENDING)
+                    .asFlow()
+                    .map { result ->
+
+                        Log.d("error", result.list.toString())
+
+                        RequestState.Success(
+                            data = result.list.groupBy {
+                                it.date.toInstant()
+                                    .atZone(ZoneId.systemDefault())
+                                    .toLocalDate()
+                            }
+                        )
+                    }
+            } catch (e: Exception) {
+                flow { emit(RequestState.Error(e)) }
+            }
+        } else {
+            flow { emit(RequestState.Error(UserNotAuthenticatedException())) }
+        }
+    }
 }
+
+private class UserNotAuthenticatedException : Exception("User is not Logged in.")
