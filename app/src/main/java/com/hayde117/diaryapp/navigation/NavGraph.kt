@@ -3,6 +3,7 @@ package com.hayde117.diaryapp.navigation
 import androidx.compose.material3.DrawerValue
 import androidx.compose.material3.rememberDrawerState
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -15,6 +16,7 @@ import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.navArgument
+import com.hayde117.diaryapp.data.repository.MongoDB
 import com.hayde117.diaryapp.presentation.components.DisplayAlertDialog
 import com.hayde117.diaryapp.presentation.screens.auth.AuthenticationScreen
 import com.hayde117.diaryapp.presentation.screens.auth.AuthenticationViewmodel
