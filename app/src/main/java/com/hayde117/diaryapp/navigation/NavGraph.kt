@@ -154,7 +154,7 @@ fun NavGraphBuilder.homeRoute(
                 signOutDialogOpened = true
             },
             navigateToWriteWithArgs = navigateToWriteWithArgs
-            )
+        )
 
         DisplayAlertDialog(
             title = "Sign Out",
@@ -205,6 +205,14 @@ fun NavGraphBuilder.writeRoute(
 
         }
 
-        WriteScreen(pagerState = pagerState, selectedDiary = null, onDeleteConfirmed = {}, onBackPressed = onBackPressed)
+        WriteScreen(
+            uiState = uiState,
+            pagerState = pagerState,
+            selectedDiary = null,
+            onDeleteConfirmed = {},
+            onBackPressed = onBackPressed,
+            onDescriptionChanged = {viewModel.setDescription(description = it)},
+            onTitleChanged = { viewModel.setTitle(title = it) }
+        )
     }
 }
