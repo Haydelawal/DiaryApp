@@ -9,6 +9,7 @@ import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
+import androidx.compose.material3.TopAppBarScrollBehavior
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
@@ -19,10 +20,12 @@ import com.hayde117.diaryapp.ui.theme.DiaryAppTheme
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun HomeTopBar(
+    scrollBehavior: TopAppBarScrollBehavior,
     onMenuClicked: () -> Unit
 ) {
     
-    TopAppBar(title = { Text(text = stringResource(R.string.diary)) },
+    TopAppBar(
+        scrollBehavior = scrollBehavior, title = { Text(text = stringResource(R.string.diary)) },
         navigationIcon = {
             IconButton(onClick = { onMenuClicked() }) {
                 Icon(imageVector = Icons.Default.Menu, contentDescription = stringResource(R.string.hamburger_menu), tint = MaterialTheme.colorScheme.onSurface )
@@ -38,5 +41,5 @@ fun HomeTopBar(
 @Preview(showBackground = true)
 @Composable
 fun GreetingPreview() {
-        HomeTopBar(onMenuClicked = {})
+//        HomeTopBar(onMenuClicked = {})
     }

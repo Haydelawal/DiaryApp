@@ -16,9 +16,15 @@ import io.realm.kotlin.mongodb.App
 
 class MainActivity : ComponentActivity() {
 
+    private var keepSplashOpened = true
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        installSplashScreen()
+        installSplashScreen().setKeepOnScreenCondition {
+
+        /** Fix White blank screen after splash screen **/
+        keepSplashOpened
+    }
 
         /** Transparent status and Nav Bar*/
         WindowCompat.setDecorFitsSystemWindows(window, false)
@@ -28,7 +34,10 @@ class MainActivity : ComponentActivity() {
                 val navController = rememberNavController()
                 SetUpNavGraph(
                     startDestination = getStartDestination(),
-                    navController = navController
+                    navController = navController,
+                    onDataLoaded = {
+                        keepSplashOpened = true
+                    }
                 )
             }
         }

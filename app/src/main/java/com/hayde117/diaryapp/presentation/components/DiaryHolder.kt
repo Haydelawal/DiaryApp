@@ -1,6 +1,10 @@
 package com.hayde117.diaryapp.presentation.components
 
 import androidx.compose.animation.AnimatedVisibility
+import androidx.compose.animation.core.Spring
+import androidx.compose.animation.core.spring
+import androidx.compose.animation.expandVertically
+import androidx.compose.animation.fadeIn
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
@@ -49,7 +53,6 @@ fun DiaryHolder(diary: Diary, onClick: (String) -> Unit) {
     var componentHeight by remember { mutableStateOf(0.dp) }
     val localDensity = LocalDensity.current
     var galleryOpened by remember { mutableStateOf(false) }
-
 
 
     /** line by the side **/
@@ -106,7 +109,16 @@ fun DiaryHolder(diary: Diary, onClick: (String) -> Unit) {
                 }
 
                 AnimatedVisibility(
-                    visible = galleryOpened
+                    visible = galleryOpened,
+
+                    /** animate diary holders gallery **/
+
+                    enter = fadeIn() + expandVertically(
+                        animationSpec = spring(
+                            dampingRatio = Spring.DampingRatioMediumBouncy,
+                            stiffness = Spring.StiffnessLow
+                        )
+                    )
                 ) {
                     Column(modifier = Modifier.padding(all = 14.dp)) {
                         Gallery(images = diary.images)
