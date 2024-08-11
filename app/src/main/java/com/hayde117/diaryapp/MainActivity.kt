@@ -36,7 +36,7 @@ class MainActivity : ComponentActivity() {
                     startDestination = getStartDestination(),
                     navController = navController,
                     onDataLoaded = {
-                        keepSplashOpened = true
+                        keepSplashOpened = false
                     }
                 )
             }
