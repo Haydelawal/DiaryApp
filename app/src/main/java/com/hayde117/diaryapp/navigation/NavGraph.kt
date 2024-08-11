@@ -1,5 +1,7 @@
 package com.hayde117.diaryapp.navigation
 
+import androidx.compose.foundation.ExperimentalFoundationApi
+import androidx.compose.foundation.pager.rememberPagerState
 import androidx.compose.material3.DrawerValue
 import androidx.compose.material3.rememberDrawerState
 import androidx.compose.runtime.Composable
@@ -169,9 +171,11 @@ fun NavGraphBuilder.homeRoute(
     }
 }
 
+@OptIn(ExperimentalFoundationApi::class)
 fun NavGraphBuilder.writeRoute(
     onBackPressed: () -> Unit
 ) {
+
     composable(
         route = Screen.WRITE.route,
         arguments = listOf(navArgument(name = WRITE_SCREEN_ARGUMENT_KEY) {
@@ -180,6 +184,8 @@ fun NavGraphBuilder.writeRoute(
             defaultValue = null
         })
     ) {
-        WriteScreen(selectedDiary = null, onDeleteConfirmed = {}, onBackPressed = onBackPressed)
+        val pagerState = rememberPagerState()
+
+        WriteScreen(pagerState = pagerState, selectedDiary = null, onDeleteConfirmed = {}, onBackPressed = onBackPressed)
     }
 }
