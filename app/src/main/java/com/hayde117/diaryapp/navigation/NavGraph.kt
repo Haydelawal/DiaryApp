@@ -1,5 +1,6 @@
 package com.hayde117.diaryapp.navigation
 
+import android.util.Log
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.pager.rememberPagerState
 import androidx.compose.material3.DrawerValue
@@ -25,6 +26,7 @@ import com.hayde117.diaryapp.presentation.screens.auth.AuthenticationViewmodel
 import com.hayde117.diaryapp.presentation.screens.home.HomeScreen
 import com.hayde117.diaryapp.presentation.screens.home.HomeViewModel
 import com.hayde117.diaryapp.presentation.screens.write.WriteScreen
+import com.hayde117.diaryapp.presentation.screens.write.WriteViewModel
 import com.hayde117.diaryapp.utils.Constants.APP_ID
 import com.hayde117.diaryapp.utils.Constants.WRITE_SCREEN_ARGUMENT_KEY
 import com.hayde117.diaryapp.utils.RequestState
@@ -59,7 +61,10 @@ fun SetUpNavGraph(
                 navController.popBackStack()
                 navController.navigate(Screen.Authentication.route)
             },
-            onDataLoaded = onDataLoaded
+            onDataLoaded = onDataLoaded,
+            navigateToWriteWithArgs = {
+                navController.navigate(Screen.WRITE.passDiaryId(diaryId = it))
+            }
         )
         writeRoute(onBackPressed = {
             navController.popBackStack()
@@ -119,6 +124,7 @@ fun NavGraphBuilder.authenticationRoute(
 
 fun NavGraphBuilder.homeRoute(
     navigateToWrite: () -> Unit,
+    navigateToWriteWithArgs: (String) -> Unit,
     navigateToAuth: () -> Unit,
     onDataLoaded: () -> Unit,
 ) {
@@ -146,7 +152,9 @@ fun NavGraphBuilder.homeRoute(
                 }
             }, navigateToWrite = navigateToWrite, drawerState = drawerState, onSignOutClicked = {
                 signOutDialogOpened = true
-            })
+            },
+            navigateToWriteWithArgs = navigateToWriteWithArgs
+            )
 
         DisplayAlertDialog(
             title = "Sign Out",
@@ -184,7 +192,18 @@ fun NavGraphBuilder.writeRoute(
             defaultValue = null
         })
     ) {
+
+        val viewModel: WriteViewModel = viewModel()
+        val uiState = viewModel.uiState
+
         val pagerState = rememberPagerState()
+
+        LaunchedEffect(key1 = uiState) {
+
+            //logging selectedDiaryId will be removed in future
+            Log.d("Selected Diary", "${uiState.selectedDiaryId}")
+
+        }
 
         WriteScreen(pagerState = pagerState, selectedDiary = null, onDeleteConfirmed = {}, onBackPressed = onBackPressed)
     }
