@@ -220,7 +220,9 @@ fun NavGraphBuilder.writeRoute(
                     mood = Mood.values()[pageNumber].name
                 },
                     onSuccess = {onBackPressed()},
-                    onError = {}
+                    onError = {
+                        Log.d("Myerror", it)
+                    }
                     )
             }
         )

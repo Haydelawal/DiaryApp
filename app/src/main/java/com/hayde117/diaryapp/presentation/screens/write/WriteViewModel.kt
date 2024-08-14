@@ -72,13 +72,13 @@ class WriteViewModel(
         uiState = uiState.copy(selectedDiary = diary)
     }
 
-    /** Trigger Update Or Insert Functiob **/
+    /** Trigger Update Or Insert Function **/
     fun upsertDiary(
         diary: Diary,
         onSuccess: () -> Unit,
         onError: (String) -> Unit
     ) {
-        viewModelScope.launch(Dispatchers.IO) {
+        viewModelScope.launch(Dispatchers.Main) {
             if (uiState.selectedDiaryId != null) {
                 updateDiary(diary = diary, onSuccess = onSuccess, onError = onError)
             } else {
@@ -93,14 +93,7 @@ class WriteViewModel(
         onSuccess: () -> Unit,
         onError: (String) -> Unit
     ) {
-        val result = MongoDB.insertDiary(diary = diary.apply {
-
-            _id = ObjectId.from(uiState.selectedDiaryId!!)
-
-            date = uiState.selectedDiary!!.date
-
-
-        })
+        val result = MongoDB.insertDiary(diary = diary)
 
         if (result is RequestState.Success) {
             withContext(Dispatchers.Main) {
@@ -119,7 +112,13 @@ class WriteViewModel(
         onSuccess: () -> Unit,
         onError: (String) -> Unit
     ) {
-        val result = MongoDB.updateDiary(diary = diary)
+        val result = MongoDB.updateDiary(diary = diary.apply {
+
+            _id = ObjectId.from(uiState.selectedDiaryId!!)
+
+            date = uiState.selectedDiary!!.date
+
+        })
 
         if (result is RequestState.Success) {
             withContext(Dispatchers.Main) {
