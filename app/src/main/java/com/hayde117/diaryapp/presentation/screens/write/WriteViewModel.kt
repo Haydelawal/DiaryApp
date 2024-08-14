@@ -50,10 +50,7 @@ class WriteViewModel(
                             setDescription(description = diary.data.description)
 
                         }
-
-
                     }
-
             }
         }
     }
@@ -75,29 +72,64 @@ class WriteViewModel(
         uiState = uiState.copy(selectedDiary = diary)
     }
 
-
-    fun insertDiary(
+    /** Trigger Update Or Insert Functiob **/
+    fun upsertDiary(
         diary: Diary,
         onSuccess: () -> Unit,
         onError: (String) -> Unit
     ) {
-
         viewModelScope.launch(Dispatchers.IO) {
+            if (uiState.selectedDiaryId != null) {
+                updateDiary(diary = diary, onSuccess = onSuccess, onError = onError)
+            } else {
+                insertDiary(diary = diary, onSuccess = onSuccess, onError = onError)
+            }
+        }
+    }
 
-            val result = MongoDB.insertDiary(diary = diary)
 
-            if (result is RequestState.Success) {
-                withContext(Dispatchers.Main) {
-                    onSuccess()
-                }
-            } else if (result is RequestState.Error) {
-                withContext(Dispatchers.Main) {
-                    onError(result.error.message.toString())
-                }
+    private suspend fun insertDiary(
+        diary: Diary,
+        onSuccess: () -> Unit,
+        onError: (String) -> Unit
+    ) {
+        val result = MongoDB.insertDiary(diary = diary.apply {
+
+            _id = ObjectId.from(uiState.selectedDiaryId!!)
+
+            date = uiState.selectedDiary!!.date
+
+
+        })
+
+        if (result is RequestState.Success) {
+            withContext(Dispatchers.Main) {
+                onSuccess()
+            }
+        } else if (result is RequestState.Error) {
+            withContext(Dispatchers.Main) {
+                onError(result.error.message.toString())
             }
         }
 
+    }
 
+    private suspend fun updateDiary(
+        diary: Diary,
+        onSuccess: () -> Unit,
+        onError: (String) -> Unit
+    ) {
+        val result = MongoDB.updateDiary(diary = diary)
+
+        if (result is RequestState.Success) {
+            withContext(Dispatchers.Main) {
+                onSuccess()
+            }
+        } else if (result is RequestState.Error) {
+            withContext(Dispatchers.Main) {
+                onError(result.error.message.toString())
+            }
+        }
     }
 
 
