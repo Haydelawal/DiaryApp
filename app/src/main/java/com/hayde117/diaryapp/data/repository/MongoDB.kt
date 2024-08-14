@@ -17,13 +17,13 @@ import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.map
 import java.time.ZoneId
 
-object MongoDB: MongoRepository {
+object MongoDB : MongoRepository {
 
     private val app = App.create(APP_ID)
     private val user = app.currentUser
     private lateinit var realm: Realm
 
-/**    hilt is not being used for netweok requests because the sdk handles that
+    /**    hilt is not being used for netweok requests because the sdk handles that
     add more explanation here..... */
 
     init {
@@ -74,16 +74,16 @@ object MongoDB: MongoRepository {
 
 
     override fun getSelectedDiary(diaryId: ObjectId): Flow<RequestState<Diary>> {
-       return  if (user != null) {
+        return if (user != null) {
             try {
                 realm.query<Diary>(query = "_id == $0", diaryId).asFlow().map {
                     RequestState.Success(data = it.list.first())
                 }
             } catch (e: Exception) {
-                flow{ emit(RequestState.Error(e)) }
+                flow { emit(RequestState.Error(e)) }
             }
         } else {
-            flow{ emit(RequestState.Error(UserNotAuthenticatedException())) }
+            flow { emit(RequestState.Error(UserNotAuthenticatedException())) }
         }
     }
 
@@ -117,6 +117,36 @@ object MongoDB: MongoRepository {
                 } else {
                     RequestState.Error(error = Exception("Queried Diary does not exist."))
                 }
+            }
+        } else {
+            RequestState.Error(UserNotAuthenticatedException())
+        }
+    }
+
+    override suspend fun deleteDiary(id: ObjectId): RequestState<Diary> {
+        return if (user != null) {
+            realm.write {
+
+                val diary =
+                    query<Diary>(query = "_id == $0 AND ownerId == $1", id, user.identity)
+                        .first().find()
+
+
+                if (diary != null) {
+                    try {
+
+                        delete(diary)
+                        RequestState.Success(data = diary)
+                    } catch (e: Exception) {
+                        RequestState.Error(e)
+
+                    }
+                } else {
+                    RequestState.Error(Exception("Diary does not exist."))
+
+                }
+
+
             }
         } else {
             RequestState.Error(UserNotAuthenticatedException())
