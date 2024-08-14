@@ -44,6 +44,7 @@ class WriteViewModel(
                     MongoDB.getSelectedDiary(diaryId = ObjectId.from(uiState.selectedDiaryId!!))
 
                 if (diary is RequestState.Success) {
+                    setSelectedDiary(diary = diary.data)
                     setMood(mood = Mood.valueOf(diary.data.mood))
                     setTitle(title = diary.data.title)
                     setDescription(description = diary.data.description)
@@ -67,6 +68,9 @@ class WriteViewModel(
         uiState = uiState.copy(mood = mood)
     }
 
+    private fun setSelectedDiary(diary: Diary) {
+        uiState = uiState.copy(selectedDiary = diary)
+    }
 
 }
 
