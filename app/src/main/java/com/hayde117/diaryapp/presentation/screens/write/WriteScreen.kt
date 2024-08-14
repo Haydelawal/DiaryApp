@@ -8,6 +8,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import com.hayde117.diaryapp.model.Diary
 import com.hayde117.diaryapp.model.Mood
+import java.time.ZonedDateTime
 
 @OptIn(ExperimentalMaterial3Api::class, ExperimentalFoundationApi::class)
 @Composable
@@ -20,21 +21,27 @@ fun WriteScreen(
     onDescriptionChanged: (String) -> Unit,
     onBackPressed: () -> Unit,
     onSaveClicked: (Diary) -> Unit,
-
-    ){
+    onDateTimeUpdated: (ZonedDateTime) -> Unit
+) {
 
     // Update the Mood when selecting an existing Diary
     LaunchedEffect(key1 = uiState.mood) {
         pagerState.scrollToPage(Mood.valueOf(uiState.mood.name).ordinal)
     }
 
-    Scaffold (
+    Scaffold(
         topBar = {
-            WriteTopBar(selectedDiary = uiState.selectedDiary, moodName = moodName, onDeleteConfirmed = onDeleteConfirmed, onBackPressed = onBackPressed)
+            WriteTopBar(
+                selectedDiary = uiState.selectedDiary,
+                moodName = moodName,
+                onDeleteConfirmed = onDeleteConfirmed,
+                onBackPressed = onBackPressed,
+                onDateTimeUpdated = onDateTimeUpdated
+            )
         },
         content = {
             WriteContent(
-                uiState= uiState,
+                uiState = uiState,
                 pagerState = pagerState,
                 title = uiState.title,
                 onDescriptionChanged = onDescriptionChanged,

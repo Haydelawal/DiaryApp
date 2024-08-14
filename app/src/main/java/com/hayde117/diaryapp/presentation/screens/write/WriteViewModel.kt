@@ -11,6 +11,7 @@ import com.hayde117.diaryapp.model.Diary
 import com.hayde117.diaryapp.model.Mood
 import com.hayde117.diaryapp.utils.Constants.WRITE_SCREEN_ARGUMENT_KEY
 import com.hayde117.diaryapp.utils.RequestState
+import com.hayde117.diaryapp.utils.toRealmInstant
 import io.realm.kotlin.types.ObjectId
 import io.realm.kotlin.types.RealmInstant
 import kotlinx.coroutines.Dispatchers
@@ -93,7 +94,11 @@ class WriteViewModel(
         onSuccess: () -> Unit,
         onError: (String) -> Unit
     ) {
-        val result = MongoDB.insertDiary(diary = diary)
+        val result = MongoDB.insertDiary(diary = diary.apply {
+            if (uiState.updatedDateTime != null) {
+                date = uiState.updatedDateTime!!
+            }
+        })
 
         if (result is RequestState.Success) {
             withContext(Dispatchers.Main) {
@@ -113,10 +118,13 @@ class WriteViewModel(
         onError: (String) -> Unit
     ) {
         val result = MongoDB.updateDiary(diary = diary.apply {
-
             _id = ObjectId.from(uiState.selectedDiaryId!!)
 
-            date = uiState.selectedDiary!!.date
+            date = if (uiState.updatedDateTime != null) {
+                uiState.updatedDateTime!!
+            } else {
+                uiState.selectedDiary!!.date
+            }
 
         })
 
@@ -131,6 +139,9 @@ class WriteViewModel(
         }
     }
 
+    fun updateDateTime(zonedDateTime: ZonedDateTime) {
+        uiState = uiState.copy(updatedDateTime = zonedDateTime.toInstant().toRealmInstant())
+    }
 
 }
 

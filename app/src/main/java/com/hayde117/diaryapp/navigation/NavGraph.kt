@@ -224,7 +224,8 @@ fun NavGraphBuilder.writeRoute(
                         Log.d("Myerror", it)
                     }
                     )
-            }
+            },
+            onDateTimeUpdated = {viewModel.updateDateTime(zonedDateTime = it)}
         )
     }
 }
