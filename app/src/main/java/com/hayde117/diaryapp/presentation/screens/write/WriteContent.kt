@@ -37,12 +37,14 @@ import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.unit.dp
 import coil.compose.AsyncImage
 import coil.request.ImageRequest
+import com.hayde117.diaryapp.model.Diary
 import com.hayde117.diaryapp.model.Mood
 import kotlinx.coroutines.launch
 
 @OptIn(ExperimentalFoundationApi::class, ExperimentalMaterial3Api::class)
 @Composable
 fun WriteContent(
+    uiState: UiState,
     pagerState: PagerState,
     title: String,
     onDescriptionChanged: (String) -> Unit,
@@ -50,9 +52,11 @@ fun WriteContent(
     onTitleChanged: (String) -> Unit,
     description: String,
     paddingValues: PaddingValues,
+    onSaveClicked: (Diary) -> Unit,
     ) {
 
     val scrollState = rememberScrollState()
+    val context = LocalContext.current
 
     Column(
         modifier = Modifier
@@ -136,7 +140,24 @@ fun WriteContent(
                 modifier = Modifier
                     .fillMaxWidth()
                     .height(54.dp),
-                onClick = { },
+                onClick = {
+
+                    if (uiState.title.isNotEmpty() && uiState.description.isNotEmpty()) {
+                        onSaveClicked(
+                            Diary().apply {
+                                this.title = uiState.title
+                                this.description = uiState.description
+                            }
+                        )
+                    } else {
+                        Toast.makeText(
+                            context,
+                            "Input fields cannot be empty.",
+                            Toast.LENGTH_SHORT
+                        ).show()
+                    }
+
+                },
                 shape = Shapes().small
             ) {
                 Text(text = "Save")

@@ -15,6 +15,7 @@ import io.realm.kotlin.types.ObjectId
 import io.realm.kotlin.types.RealmInstant
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import java.time.ZonedDateTime
 
 class WriteViewModel(
@@ -71,6 +72,32 @@ class WriteViewModel(
     private fun setSelectedDiary(diary: Diary) {
         uiState = uiState.copy(selectedDiary = diary)
     }
+
+
+      fun insertDiary(
+        diary: Diary,
+        onSuccess: () -> Unit,
+        onError: (String) -> Unit
+    ) {
+
+        viewModelScope.launch(Dispatchers.IO) {
+
+            val result = MongoDB.insertDiary(diary = diary)
+
+            if (result is RequestState.Success) {
+                withContext(Dispatchers.Main) {
+                    onSuccess()
+                }
+            } else if (result is RequestState.Error) {
+                withContext(Dispatchers.Main) {
+                    onError(result.error.message.toString())
+                }
+            }
+        }
+
+
+    }
+
 
 }
 
