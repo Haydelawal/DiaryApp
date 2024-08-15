@@ -22,7 +22,7 @@ import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.navArgument
-import com.hayde117.diaryapp.model.Diary
+import com.hayde117.diaryapp.model.GalleryImage
 import com.hayde117.diaryapp.model.Mood
 import com.hayde117.diaryapp.presentation.components.DisplayAlertDialog
 import com.hayde117.diaryapp.presentation.screens.auth.AuthenticationScreen
@@ -33,7 +33,8 @@ import com.hayde117.diaryapp.presentation.screens.write.WriteScreen
 import com.hayde117.diaryapp.presentation.screens.write.WriteViewModel
 import com.hayde117.diaryapp.utils.Constants.APP_ID
 import com.hayde117.diaryapp.utils.Constants.WRITE_SCREEN_ARGUMENT_KEY
-import com.hayde117.diaryapp.utils.RequestState
+import com.hayde117.diaryapp.model.RequestState
+import com.hayde117.diaryapp.model.rememberGalleryState
 import com.stevdzasan.messagebar.rememberMessageBarState
 import com.stevdzasan.onetap.rememberOneTapSignInState
 import io.realm.kotlin.mongodb.App
@@ -199,6 +200,7 @@ fun NavGraphBuilder.writeRoute(
 
         val viewModel: WriteViewModel = viewModel()
         val uiState = viewModel.uiState
+        val galleryState = rememberGalleryState()
 
         val pagerState = rememberPagerState()
         val pageNumber by remember { derivedStateOf { pagerState.currentPage } }
@@ -221,6 +223,7 @@ fun NavGraphBuilder.writeRoute(
                         Toast.makeText(context, message, Toast.LENGTH_SHORT).show()
                     })
             },
+            galleryState = galleryState,
             onBackPressed = onBackPressed,
             onDescriptionChanged = { viewModel.setDescription(description = it) },
             onTitleChanged = { viewModel.setTitle(title = it) },
@@ -236,7 +239,10 @@ fun NavGraphBuilder.writeRoute(
                     }
                 )
             },
-            onDateTimeUpdated = { viewModel.updateDateTime(zonedDateTime = it) }
+            onDateTimeUpdated = { viewModel.updateDateTime(zonedDateTime = it) },
+            onImageSelect = {
+                galleryState.addImage(GalleryImage(image = it, remoteImagePath = ""))
+            }
         )
     }
 }

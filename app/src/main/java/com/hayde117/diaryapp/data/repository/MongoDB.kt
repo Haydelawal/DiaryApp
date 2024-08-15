@@ -3,7 +3,7 @@ package com.hayde117.diaryapp.data.repository
 import android.util.Log
 import com.hayde117.diaryapp.model.Diary
 import com.hayde117.diaryapp.utils.Constants.APP_ID
-import com.hayde117.diaryapp.utils.RequestState
+import com.hayde117.diaryapp.model.RequestState
 import com.hayde117.diaryapp.utils.toInstant
 import io.realm.kotlin.Realm
 import io.realm.kotlin.ext.query
