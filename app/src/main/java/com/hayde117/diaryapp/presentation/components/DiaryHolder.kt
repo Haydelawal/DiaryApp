@@ -148,7 +148,7 @@ fun DiaryHolder(diary: Diary, onClick: (String) -> Unit) {
                 }
 
                 AnimatedVisibility(
-                    visible = galleryOpened,
+                    visible = galleryOpened && !galleryLoading,
 
                     /** animate diary holders gallery **/
 

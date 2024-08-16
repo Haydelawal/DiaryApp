@@ -6,17 +6,29 @@ import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import androidx.core.view.WindowCompat
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.compose.rememberNavController
 import com.google.firebase.ktx.Firebase
 import com.google.firebase.ktx.initialize
+import com.hayde117.diaryapp.data.database.ImageToUploadDao
 import com.hayde117.diaryapp.data.repository.MongoDB
 import com.hayde117.diaryapp.navigation.Screen
 import com.hayde117.diaryapp.navigation.SetUpNavGraph
 import com.hayde117.diaryapp.ui.theme.DiaryAppTheme
 import com.hayde117.diaryapp.utils.Constants.APP_ID
+import com.hayde117.diaryapp.utils.retryUploadingImageToFirebase
+import dagger.hilt.android.AndroidEntryPoint
 import io.realm.kotlin.mongodb.App
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import javax.inject.Inject
 
+@AndroidEntryPoint
 class MainActivity : ComponentActivity() {
+
+    @Inject
+    lateinit var imageToUploadDao: ImageToUploadDao
 
     private var keepSplashOpened = true
 
@@ -47,8 +59,35 @@ class MainActivity : ComponentActivity() {
                 )
             }
         }
+
+        cleanupCheck(
+            scope = lifecycleScope,
+            imageToUploadDao = imageToUploadDao,
+        )
+
     }
 }
+
+private fun cleanupCheck(
+    scope: CoroutineScope,
+    imageToUploadDao: ImageToUploadDao,
+) {
+    scope.launch(Dispatchers.IO) {
+        val result = imageToUploadDao.getAllImages()
+        result.forEach { imageToUpload ->
+            retryUploadingImageToFirebase(
+                imageToUpload = imageToUpload,
+                onSuccess = {
+                    scope.launch(Dispatchers.IO) {
+                        imageToUploadDao.cleanupImage(imageId = imageToUpload.id)
+                    }
+                }
+            )
+        }
+
+    }
+}
+
 
 private fun getStartDestination(): String {
     val user = App.create(APP_ID).currentUser
