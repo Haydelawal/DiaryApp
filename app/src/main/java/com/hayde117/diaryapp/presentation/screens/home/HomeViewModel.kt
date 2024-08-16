@@ -1,5 +1,6 @@
 package com.hayde117.diaryapp.presentation.screens.home
 
+import android.util.Log
 import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
@@ -19,14 +20,12 @@ class HomeViewModel: ViewModel() {
     }
 
     private fun observeAllDiaries() {
-        viewModelScope.launch(Dispatchers.IO) {
+        viewModelScope.launch(Dispatchers.Main) {
             MongoDB.getAllDiaries().collect { result ->
                 diaries.value = result
             }
         }
     }
-
-
 
 }
 

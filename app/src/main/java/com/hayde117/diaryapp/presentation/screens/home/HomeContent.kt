@@ -1,5 +1,6 @@
 package com.hayde117.diaryapp.presentation.screens.home
 
+import android.util.Log
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
@@ -47,6 +48,9 @@ fun HomeContent(
                 stickyHeader(key = localDate) {
                     DateHeader(localDate = localDate)
                 }
+
+                Log.d("diaries..", "aaaa ${diaries.size.toString()}")
+
 
                 items(
                     items = diaries,

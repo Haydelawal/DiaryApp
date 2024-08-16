@@ -15,6 +15,7 @@ import io.realm.kotlin.types.ObjectId
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.map
+import kotlinx.coroutines.flow.toList
 import java.time.ZoneId
 
 object MongoDB : MongoRepository {
@@ -53,9 +54,6 @@ object MongoDB : MongoRepository {
                     .sort(property = "date", sortOrder = Sort.DESCENDING)
                     .asFlow()
                     .map { result ->
-
-                        Log.d("error", result.list.toString())
-
                         RequestState.Success(
                             data = result.list.groupBy {
                                 it.date.toInstant()
@@ -64,6 +62,8 @@ object MongoDB : MongoRepository {
                             }
                         )
                     }
+
+
             } catch (e: Exception) {
                 flow { emit(RequestState.Error(e)) }
             }

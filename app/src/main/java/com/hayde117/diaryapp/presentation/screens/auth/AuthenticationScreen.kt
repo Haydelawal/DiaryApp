@@ -10,6 +10,8 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Modifier
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.GoogleAuthProvider
 import com.hayde117.diaryapp.utils.Constants.CLIENT_ID
 import com.stevdzasan.messagebar.ContentWithMessageBar
 import com.stevdzasan.messagebar.MessageBarState
@@ -25,7 +27,8 @@ fun AuthenticationScreen(
     onButtonClicked: () -> Unit,
     oneTapState:OneTapSignInState,
     messageBarState: MessageBarState,
-    onTokenIdReceived: (String) -> Unit,
+    onSuccessfulFirebaseSignIn: (String) -> Unit,
+    onFailedFirebaseSignIn: (Exception) -> Unit,
     onDialogDismissed: (String) -> Unit,
     navigateToHome: () -> Unit
     ) {
@@ -53,18 +56,21 @@ fun AuthenticationScreen(
         state = oneTapState,
         clientId = CLIENT_ID,
         onTokenIdReceived = { tokenId ->
-//            val credential = GoogleAuthProvider.getCredential(tokenId, null)
-//            FirebaseAuth.getInstance().signInWithCredential(credential)
-//                .addOnCompleteListener { task ->
-//                    if(task.isSuccessful) {
-//                        onSuccessfulFirebaseSignIn(tokenId)
-//                    } else {
-//                        task.exception?.let { it -> onFailedFirebaseSignIn(it) }
-//                    }
-//                }
-//            messageBarState.addSuccess("Successfully Authenticated!")
 
-            onTokenIdReceived(tokenId)
+            val credential = GoogleAuthProvider.getCredential(tokenId, null)
+
+            FirebaseAuth.getInstance().signInWithCredential(credential)
+                .addOnCompleteListener { task ->
+                    if(task.isSuccessful) {
+                        onSuccessfulFirebaseSignIn(tokenId)
+                    } else {
+                        task.exception?.let { it -> onFailedFirebaseSignIn(it) }
+                    }
+                }
+
+            messageBarState.addSuccess("Successfully Authenticated!")
+
+            onSuccessfulFirebaseSignIn(tokenId)
 
         },
         onDialogDismissed = { message ->

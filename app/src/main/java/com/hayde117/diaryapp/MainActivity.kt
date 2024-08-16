@@ -7,6 +7,8 @@ import androidx.activity.compose.setContent
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import androidx.core.view.WindowCompat
 import androidx.navigation.compose.rememberNavController
+import com.google.firebase.ktx.Firebase
+import com.google.firebase.ktx.initialize
 import com.hayde117.diaryapp.data.repository.MongoDB
 import com.hayde117.diaryapp.navigation.Screen
 import com.hayde117.diaryapp.navigation.SetUpNavGraph
@@ -28,6 +30,10 @@ class MainActivity : ComponentActivity() {
 
         /** Transparent status and Nav Bar*/
         WindowCompat.setDecorFitsSystemWindows(window, false)
+
+        /** init fire base **/
+
+        Firebase.initialize(this)
 
         setContent {
             DiaryAppTheme {

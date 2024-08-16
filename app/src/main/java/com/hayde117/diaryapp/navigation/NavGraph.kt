@@ -104,7 +104,7 @@ fun NavGraphBuilder.authenticationRoute(
                 viewmodel.setLoading(true)
             },
             messageBarState = messageBarState,
-            onTokenIdReceived = { tokenId ->
+            onSuccessfulFirebaseSignIn = { tokenId ->
                 viewmodel.signInWithMongoAtlas(
                     tokenId = tokenId,
                     onSuccess = {
@@ -116,6 +116,10 @@ fun NavGraphBuilder.authenticationRoute(
                         viewmodel.setLoading(false)
                     }
                 )
+            },
+            onFailedFirebaseSignIn = {
+                messageBarState.addError(it)
+                viewmodel.setLoading(false)
             },
             onDialogDismissed = { message ->
                 messageBarState.addError(Exception(message))
@@ -241,7 +245,10 @@ fun NavGraphBuilder.writeRoute(
             },
             onDateTimeUpdated = { viewModel.updateDateTime(zonedDateTime = it) },
             onImageSelect = {
-                galleryState.addImage(GalleryImage(image = it, remoteImagePath = ""))
+                galleryState.addImage(GalleryImage(
+                    image = it,
+                    remoteImagePath = ""
+                ))
             }
         )
     }
