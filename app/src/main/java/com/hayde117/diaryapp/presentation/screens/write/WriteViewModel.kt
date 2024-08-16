@@ -9,6 +9,7 @@ import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.storage.FirebaseStorage
 import com.hayde117.diaryapp.data.repository.MongoDB
 import com.hayde117.diaryapp.model.Diary
 import com.hayde117.diaryapp.model.GalleryImage
@@ -110,6 +111,8 @@ class WriteViewModel(
         })
 
         if (result is RequestState.Success) {
+            uploadImagesToFirebase()
+
             withContext(Dispatchers.Main) {
                 onSuccess()
             }
@@ -138,6 +141,8 @@ class WriteViewModel(
         })
 
         if (result is RequestState.Success) {
+            uploadImagesToFirebase()
+
             withContext(Dispatchers.Main) {
                 onSuccess()
             }
@@ -188,6 +193,35 @@ class WriteViewModel(
                 remoteImagePath = remoteImagePath
             )
         )
+    }
+
+
+    private fun uploadImagesToFirebase() {
+        val storage = FirebaseStorage.getInstance().reference
+
+        galleryState.images.forEach { galleryImage ->
+            val imagePath = storage.child(galleryImage.remoteImagePath)
+            imagePath.putFile(galleryImage.image)
+
+//                .addOnProgressListener {
+//                    val sessionUri = it.uploadSessionUri
+//                    if (sessionUri != null) {
+//                        viewModelScope.launch(Dispatchers.IO) {
+//                            imageToUploadDao.addImageToUpload(
+//                                ImageToUpload(
+//                                    remoteImagePath = galleryImage.remoteImagePath,
+//                                    imageUri = galleryImage.image.toString(),
+//                                    sessionUri = sessionUri.toString()
+//                                )
+//                            )
+//                        }
+//                    }
+//                }
+
+
+        }
+
+
     }
 
 }

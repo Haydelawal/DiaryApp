@@ -45,6 +45,7 @@ import com.hayde117.diaryapp.model.Diary
 import com.hayde117.diaryapp.model.GalleryState
 import com.hayde117.diaryapp.model.Mood
 import com.hayde117.diaryapp.presentation.components.GalleryUploader
+import io.realm.kotlin.ext.toRealmList
 import kotlinx.coroutines.launch
 
 @OptIn(ExperimentalFoundationApi::class, ExperimentalMaterial3Api::class)
@@ -179,6 +180,9 @@ fun WriteContent(
                             Diary().apply {
                                 this.title = uiState.title
                                 this.description = uiState.description
+                                this.images = galleryState.images.map {
+                                    it.remoteImagePath
+                                }.toRealmList()
                             }
                         )
                     } else {
