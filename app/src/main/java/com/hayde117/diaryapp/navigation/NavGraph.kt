@@ -251,7 +251,8 @@ fun NavGraphBuilder.writeRoute(
                     imageType = type
                 )
 
-            }
+            },
+            onImageDeleteClicked = {}
         )
     }
 }
