@@ -10,4 +10,8 @@ object Constants {
     const val DATE_FORMAT_1 = "dd MMM yyyy, hh:mm a"
     const val DATE_FORMAT_2 = "dd MMM yyyy"
     const val DATE_FORMAT_3 = "hh:mm a"
+
+    const val IMAGES_DATABASE = "images_db"
+    const val IMAGE_TO_UPLOAD_TABLE = "image_to_upload_table"
+    const val IMAGE_TO_DELETE_TABLE = "image_to_delete_table"
 }
