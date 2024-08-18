@@ -10,12 +10,14 @@ import androidx.lifecycle.lifecycleScope
 import androidx.navigation.compose.rememberNavController
 import com.google.firebase.ktx.Firebase
 import com.google.firebase.ktx.initialize
+import com.hayde117.diaryapp.data.database.ImageToDeleteDao
 import com.hayde117.diaryapp.data.database.ImageToUploadDao
 import com.hayde117.diaryapp.data.repository.MongoDB
 import com.hayde117.diaryapp.navigation.Screen
 import com.hayde117.diaryapp.navigation.SetUpNavGraph
 import com.hayde117.diaryapp.ui.theme.DiaryAppTheme
 import com.hayde117.diaryapp.utils.Constants.APP_ID
+import com.hayde117.diaryapp.utils.retryDeletingImageFromFirebase
 import com.hayde117.diaryapp.utils.retryUploadingImageToFirebase
 import dagger.hilt.android.AndroidEntryPoint
 import io.realm.kotlin.mongodb.App
@@ -29,6 +31,9 @@ class MainActivity : ComponentActivity() {
 
     @Inject
     lateinit var imageToUploadDao: ImageToUploadDao
+
+    @Inject
+    lateinit var imageToDeleteDao: ImageToDeleteDao
 
     private var keepSplashOpened = true
 
@@ -63,6 +68,7 @@ class MainActivity : ComponentActivity() {
         cleanupCheck(
             scope = lifecycleScope,
             imageToUploadDao = imageToUploadDao,
+            imageToDeleteDao = imageToDeleteDao
         )
 
     }
@@ -71,8 +77,10 @@ class MainActivity : ComponentActivity() {
 private fun cleanupCheck(
     scope: CoroutineScope,
     imageToUploadDao: ImageToUploadDao,
+    imageToDeleteDao: ImageToDeleteDao
 ) {
     scope.launch(Dispatchers.IO) {
+
         val result = imageToUploadDao.getAllImages()
         result.forEach { imageToUpload ->
             retryUploadingImageToFirebase(
@@ -80,6 +88,18 @@ private fun cleanupCheck(
                 onSuccess = {
                     scope.launch(Dispatchers.IO) {
                         imageToUploadDao.cleanupImage(imageId = imageToUpload.id)
+                    }
+                }
+            )
+        }
+
+        val result2 = imageToDeleteDao.getAllImages()
+        result2.forEach { imageToDelete ->
+            retryDeletingImageFromFirebase(
+                imageToDelete = imageToDelete,
+                onSuccess = {
+                    scope.launch(Dispatchers.IO) {
+                        imageToDeleteDao.cleanupImage(imageId = imageToDelete.id)
                     }
                 }
             )

@@ -12,7 +12,9 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
 import com.google.firebase.storage.FirebaseStorage
+import com.hayde117.diaryapp.data.database.ImageToDeleteDao
 import com.hayde117.diaryapp.data.database.ImageToUploadDao
+import com.hayde117.diaryapp.data.database.entity.ImageToDelete
 import com.hayde117.diaryapp.data.database.entity.ImageToUpload
 import com.hayde117.diaryapp.data.repository.MongoDB
 import com.hayde117.diaryapp.model.Diary
@@ -37,8 +39,8 @@ import javax.inject.Inject
 class WriteViewModel @Inject constructor(
     private val savedStateHandle: SavedStateHandle,
     private val imageToUploadDao: ImageToUploadDao,
-
-    ) : ViewModel() {
+    private val imageToDeleteDao: ImageToDeleteDao
+) : ViewModel() {
 
     val galleryState = GalleryState()
 
@@ -259,10 +261,26 @@ class WriteViewModel @Inject constructor(
             images.forEach { remotePath ->
                 storage.child(remotePath).delete()
 
+                    .addOnFailureListener {
+                        viewModelScope.launch(Dispatchers.IO) {
+                            imageToDeleteDao.addImageToDelete(
+                                ImageToDelete(remoteImagePath = remotePath)
+                            )
+                        }
+                    }
+
             }
         } else {
             galleryState.imagesToBeDeleted.map { it.remoteImagePath }.forEach {remotePath ->
                 storage.child(remotePath).delete()
+
+                    .addOnFailureListener {
+                        viewModelScope.launch(Dispatchers.IO) {
+                            imageToDeleteDao.addImageToDelete(
+                                ImageToDelete(remoteImagePath = remotePath)
+                            )
+                        }
+                    }
             }
         }
     }
