@@ -1,7 +1,9 @@
 package com.hayde117.diaryapp.navigation
 
+import android.os.Build
 import android.util.Log
 import android.widget.Toast
+import androidx.annotation.RequiresApi
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.pager.rememberPagerState
 import androidx.compose.material3.DrawerValue
@@ -43,6 +45,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
+@RequiresApi(Build.VERSION_CODES.N)
 @Composable
 fun SetUpNavGraph(
     startDestination: String,
@@ -132,6 +135,7 @@ fun NavGraphBuilder.authenticationRoute(
     }
 }
 
+@RequiresApi(Build.VERSION_CODES.N)
 fun NavGraphBuilder.homeRoute(
     navigateToWrite: () -> Unit,
     navigateToWriteWithArgs: (String) -> Unit,
@@ -139,13 +143,16 @@ fun NavGraphBuilder.homeRoute(
     onDataLoaded: () -> Unit,
 ) {
     composable(route = Screen.HOME.route) {
-        val viewModel: HomeViewModel = viewModel()
+        val viewModel: HomeViewModel = hiltViewModel()
         val diaries by viewModel.diaries
 
         val drawerState = rememberDrawerState(initialValue = DrawerValue.Closed)
         var signOutDialogOpened by remember {
             mutableStateOf(false)
         }
+        var deleteAllDialogOpened by remember { mutableStateOf(false) }
+
+        val context = LocalContext.current
         val scope = rememberCoroutineScope()
 
         LaunchedEffect(key1 = diaries) {
@@ -163,7 +170,10 @@ fun NavGraphBuilder.homeRoute(
             }, navigateToWrite = navigateToWrite, drawerState = drawerState, onSignOutClicked = {
                 signOutDialogOpened = true
             },
-            navigateToWriteWithArgs = navigateToWriteWithArgs
+            navigateToWriteWithArgs = navigateToWriteWithArgs,
+            onDeleteAllClicked = {
+                deleteAllDialogOpened = true
+            }
         )
 
         DisplayAlertDialog(
@@ -185,6 +195,42 @@ fun NavGraphBuilder.homeRoute(
                 }
             }
         )
+
+
+        DisplayAlertDialog(
+            title = "Delete All Diaries",
+            message = "Are you sure you want to permanently delete all your diaries?",
+            dialogOpened = deleteAllDialogOpened,
+            onDialogClosed = { deleteAllDialogOpened = false },
+            onYesClicked = {
+                viewModel.deleteAllDiaries(
+                    onSuccess = {
+                        Toast.makeText(
+                            context,
+                            "All Diaries Deleted.",
+                            Toast.LENGTH_SHORT
+                        ).show()
+                        scope.launch {
+                            drawerState.close()
+                        }
+                    },
+                    onError = {
+                        Toast.makeText(
+                            context,
+                            if (it.message == "No Internet Connection.")
+                                "We need an Internet Connection for this operation."
+                            else it.message,
+                            Toast.LENGTH_SHORT
+                        ).show()
+                        scope.launch {
+                            drawerState.close()
+                        }
+                    }
+                )
+            }
+        )
+
+
 
     }
 }

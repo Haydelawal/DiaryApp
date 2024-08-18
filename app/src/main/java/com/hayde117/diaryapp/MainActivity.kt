@@ -4,6 +4,7 @@ import android.os.Build
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
+import androidx.annotation.RequiresApi
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import androidx.core.view.WindowCompat
 import androidx.lifecycle.lifecycleScope
@@ -12,7 +13,6 @@ import com.google.firebase.ktx.Firebase
 import com.google.firebase.ktx.initialize
 import com.hayde117.diaryapp.data.database.ImageToDeleteDao
 import com.hayde117.diaryapp.data.database.ImageToUploadDao
-import com.hayde117.diaryapp.data.repository.MongoDB
 import com.hayde117.diaryapp.navigation.Screen
 import com.hayde117.diaryapp.navigation.SetUpNavGraph
 import com.hayde117.diaryapp.ui.theme.DiaryAppTheme
@@ -26,6 +26,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
+@RequiresApi(Build.VERSION_CODES.N)
 @AndroidEntryPoint
 class MainActivity : ComponentActivity() {
 
