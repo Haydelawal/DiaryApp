@@ -197,6 +197,7 @@ class WriteViewModel @Inject constructor(
 
                 if (result is RequestState.Success) {
                     withContext(Dispatchers.Main) {
+                        uiState.selectedDiary?.let { deleteImagesFromFirebase(images = it.images) }
                         onSuccess()
                     }
                 } else if (result is RequestState.Error) {
@@ -230,7 +231,7 @@ class WriteViewModel @Inject constructor(
             val imagePath = storage.child(galleryImage.remoteImagePath)
             imagePath.putFile(galleryImage.image)
 
-            /** handle image upload failed **/
+                /** handle image upload failed **/
 
                 .addOnProgressListener {
                     val sessionUri = it.uploadSessionUri
@@ -246,10 +247,16 @@ class WriteViewModel @Inject constructor(
                         }
                     }
                 }
-
-
         }
+    }
 
+    private fun deleteImagesFromFirebase(images: List<String>) {
+        val storage = FirebaseStorage.getInstance().reference
+
+            images.forEach { remotePath ->
+                storage.child(remotePath).delete()
+
+            }
 
     }
 
