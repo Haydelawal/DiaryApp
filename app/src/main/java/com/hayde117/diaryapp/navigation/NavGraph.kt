@@ -252,7 +252,9 @@ fun NavGraphBuilder.writeRoute(
                 )
 
             },
-            onImageDeleteClicked = {}
+            onImageDeleteClicked = {
+                galleryState.removeImage(it)
+            }
         )
     }
 }
