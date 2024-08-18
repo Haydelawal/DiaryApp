@@ -20,8 +20,12 @@ import com.hayde117.diaryapp.data.repository.MongoDB
 import com.hayde117.diaryapp.model.RequestState
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.FlowPreview
+import kotlinx.coroutines.Job
+import kotlinx.coroutines.cancelAndJoin
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
+import java.time.ZonedDateTime
 import javax.inject.Inject
 
 @RequiresApi(Build.VERSION_CODES.N)
@@ -31,19 +35,60 @@ class HomeViewModel @Inject constructor(
     private val imageToDeleteDao: ImageToDeleteDao
 ) : ViewModel() {
 
+    /** using this to manually cancel coroutine job **/
+    private lateinit var allDiariesJob: Job
+
+    /** using this to manually cancel coroutine job **/
+    private lateinit var filteredDiariesJob: Job
+
     var diaries: MutableState<Diaries> = mutableStateOf(RequestState.Idle)
     private var network by mutableStateOf(ConnectivityObserver.Status.Unavailable)
 
+    var dateIsSelected by mutableStateOf(false)
+        private set
+
 
     init {
-        observeAllDiaries()
+        getDiaries()
         viewModelScope.launch {
             connectivity.observe().collect { network = it }
         }
     }
 
+
+    fun getDiaries(zonedDateTime: ZonedDateTime? = null) {
+        dateIsSelected = zonedDateTime != null
+        diaries.value = RequestState.Loading
+        if (dateIsSelected && zonedDateTime != null) {
+            observeFilteredDiaries(zonedDateTime = zonedDateTime)
+        } else {
+            observeAllDiaries()
+        }
+    }
+
+    private fun observeFilteredDiaries(zonedDateTime: ZonedDateTime) {
+       filteredDiariesJob = viewModelScope.launch {
+
+           /** using this to manually cancel coroutine job **/
+           if (::allDiariesJob.isInitialized) {
+               allDiariesJob.cancelAndJoin()
+           }
+
+            MongoDB.getFilteredDiaries(zonedDateTime = zonedDateTime).collect { result ->
+                diaries.value = result
+            }
+        }
+    }
+
+
     private fun observeAllDiaries() {
-        viewModelScope.launch(Dispatchers.Main) {
+      allDiariesJob =  viewModelScope.launch(Dispatchers.Main) {
+
+          /** using this to manually cancel coroutine job **/
+          if (::filteredDiariesJob.isInitialized) {
+              filteredDiariesJob.cancelAndJoin()
+          }
+
             MongoDB.getAllDiaries().collect { result ->
                 diaries.value = result
             }
