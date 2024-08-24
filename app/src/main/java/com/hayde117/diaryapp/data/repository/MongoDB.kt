@@ -177,8 +177,19 @@ object MongoDB : MongoRepository {
                     "ownerId == $0 AND date < $1 AND date > $2",
                     user.identity,
 
-                    RealmInstant.from(zonedDateTime.plusDays(1).toInstant().epochSecond, 0),
-                    RealmInstant.from(zonedDateTime.minusDays(1).toInstant().epochSecond, 0),
+                    // fix wrong date bug
+                    RealmInstant.from(
+                        LocalDateTime.of(
+                            zonedDateTime.toLocalDate().plusDays(1),
+                            LocalTime.MIDNIGHT
+                        ).toEpochSecond(zonedDateTime.offset), 0
+                    ),
+                    RealmInstant.from(
+                        LocalDateTime.of(
+                            zonedDateTime.toLocalDate(),
+                            LocalTime.MIDNIGHT
+                        ).toEpochSecond(zonedDateTime.offset), 0
+                    )
 
                 ).asFlow().map { result ->
                     RequestState.Success(
