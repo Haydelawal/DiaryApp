@@ -26,10 +26,10 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import com.hayde117.util.model.Diary
 import com.hayde117.ui.components.DisplayAlertDialog
-import com.hayde117.diaryapp.utils.Constants.DATE_FORMAT_1
-import com.hayde117.diaryapp.utils.Constants.DATE_FORMAT_2
-import com.hayde117.diaryapp.utils.Constants.DATE_FORMAT_3
-import com.hayde117.diaryapp.utils.toInstant
+import com.hayde117.util.Constants.DATE_FORMAT_1
+import com.hayde117.util.Constants.DATE_FORMAT_2
+import com.hayde117.util.Constants.DATE_FORMAT_3
+import com.hayde117.util.toInstant
 import com.maxkeppeker.sheets.core.models.base.rememberSheetState
 import com.maxkeppeler.sheets.calendar.CalendarDialog
 import com.maxkeppeler.sheets.calendar.models.CalendarConfig

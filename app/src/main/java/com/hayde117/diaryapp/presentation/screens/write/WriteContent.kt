@@ -39,11 +39,11 @@ import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.unit.dp
 import coil.compose.AsyncImage
 import coil.request.ImageRequest
-import com.hayde117.util.model.Diary
-import com.hayde117.diaryapp.model.GalleryImage
-import com.hayde117.diaryapp.model.GalleryState
-import com.hayde117.util.model.Mood
+import com.hayde117.ui.GalleryImage
+import com.hayde117.ui.GalleryState
 import com.hayde117.ui.components.GalleryUploader
+import com.hayde117.util.model.Diary
+import com.hayde117.util.model.Mood
 import io.realm.kotlin.ext.toRealmList
 import kotlinx.coroutines.launch
 

@@ -15,9 +15,10 @@ import com.hayde117.diaryapp.data.database.ImageToDeleteDao
 import com.hayde117.diaryapp.data.database.ImageToUploadDao
 import com.hayde117.diaryapp.navigation.SetUpNavGraph
 import com.hayde117.ui.theme.DiaryAppTheme
-import com.hayde117.diaryapp.utils.Constants.APP_ID
-import com.hayde117.diaryapp.utils.retryDeletingImageFromFirebase
-import com.hayde117.diaryapp.utils.retryUploadingImageToFirebase
+import com.hayde117.util.Constants.APP_ID
+import com.hayde117.util.Screen
+import com.hayde117.util.retryDeletingImageFromFirebase
+import com.hayde117.util.retryUploadingImageToFirebase
 import dagger.hilt.android.AndroidEntryPoint
 import io.realm.kotlin.mongodb.App
 import kotlinx.coroutines.CoroutineScope

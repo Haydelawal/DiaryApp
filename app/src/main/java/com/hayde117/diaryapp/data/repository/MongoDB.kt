@@ -1,9 +1,9 @@
 package com.hayde117.diaryapp.data.repository
 
 import com.hayde117.util.model.Diary
-import com.hayde117.diaryapp.utils.Constants.APP_ID
+import com.hayde117.util.Constants.APP_ID
 import com.hayde117.util.model.RequestState
-import com.hayde117.diaryapp.utils.toInstant
+import com.hayde117.util.toInstant
 import io.realm.kotlin.Realm
 import io.realm.kotlin.ext.query
 import io.realm.kotlin.log.LogLevel

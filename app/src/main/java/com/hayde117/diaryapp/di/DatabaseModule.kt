@@ -4,7 +4,7 @@ import android.content.Context
 import androidx.room.Room
 import com.hayde117.util.connectivity.NetworkConnectivityObserver
 import com.hayde117.diaryapp.data.database.ImagesDatabase
-import com.hayde117.diaryapp.utils.Constants.IMAGES_DATABASE
+import com.hayde117.util.Constants.IMAGES_DATABASE
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn

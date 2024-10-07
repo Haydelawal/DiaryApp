@@ -33,8 +33,9 @@ import com.hayde117.diaryapp.presentation.screens.home.HomeScreen
 import com.hayde117.diaryapp.presentation.screens.home.HomeViewModel
 import com.hayde117.diaryapp.presentation.screens.write.WriteScreen
 import com.hayde117.diaryapp.presentation.screens.write.WriteViewModel
-import com.hayde117.diaryapp.utils.Constants.APP_ID
-import com.hayde117.diaryapp.utils.Constants.WRITE_SCREEN_ARGUMENT_KEY
+import com.hayde117.util.Constants.APP_ID
+import com.hayde117.util.Constants.WRITE_SCREEN_ARGUMENT_KEY
+import com.hayde117.util.Screen
 import com.hayde117.util.model.RequestState
 import com.stevdzasan.messagebar.rememberMessageBarState
 import com.stevdzasan.onetap.rememberOneTapSignInState
