@@ -43,11 +43,11 @@ import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.hayde117.diaryapp.model.Diary
-import com.hayde117.diaryapp.model.Mood
+import com.hayde117.util.model.Diary
+import com.hayde117.util.model.Mood
 import com.hayde117.ui.theme.Elevation
-import com.hayde117.diaryapp.utils.fetchImagesFromFirebase
-import com.hayde117.diaryapp.utils.toInstant
+import com.hayde117.util.fetchImagesFromFirebase
+import com.hayde117.util.toInstant
 import java.time.Instant
 import java.time.ZoneId
 import java.time.format.DateTimeFormatter

@@ -17,12 +17,12 @@ import com.hayde117.diaryapp.data.database.ImageToUploadDao
 import com.hayde117.diaryapp.data.database.entity.ImageToDelete
 import com.hayde117.diaryapp.data.database.entity.ImageToUpload
 import com.hayde117.diaryapp.data.repository.MongoDB
-import com.hayde117.diaryapp.model.Diary
+import com.hayde117.util.model.Diary
 import com.hayde117.diaryapp.model.GalleryImage
 import com.hayde117.diaryapp.model.GalleryState
-import com.hayde117.diaryapp.model.Mood
+import com.hayde117.util.model.Mood
 import com.hayde117.diaryapp.utils.Constants.WRITE_SCREEN_ARGUMENT_KEY
-import com.hayde117.diaryapp.model.RequestState
+import com.hayde117.util.model.RequestState
 import com.hayde117.diaryapp.utils.fetchImagesFromFirebase
 import com.hayde117.diaryapp.utils.toRealmInstant
 import dagger.hilt.android.lifecycle.HiltViewModel

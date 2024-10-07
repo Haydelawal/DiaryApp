@@ -1,7 +1,6 @@
 package com.hayde117.diaryapp.presentation.screens.home
 
 import android.annotation.SuppressLint
-import android.util.Log
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.PaddingValues
@@ -42,7 +41,7 @@ import androidx.compose.ui.unit.LayoutDirection
 import androidx.compose.ui.unit.dp
 import com.hayde117.diaryapp.R
 import com.hayde117.diaryapp.data.repository.Diaries
-import com.hayde117.diaryapp.model.RequestState
+import com.hayde117.util.model.RequestState
 import java.time.ZonedDateTime
 
 @OptIn(ExperimentalMaterial3Api::class)

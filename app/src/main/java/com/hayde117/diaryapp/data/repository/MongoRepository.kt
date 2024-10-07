@@ -1,7 +1,7 @@
 package com.hayde117.diaryapp.data.repository
 
-import com.hayde117.diaryapp.model.Diary
-import com.hayde117.diaryapp.model.RequestState
+import com.hayde117.util.model.Diary
+import com.hayde117.util.model.RequestState
 import io.realm.kotlin.types.ObjectId
 import kotlinx.coroutines.flow.Flow
 import java.time.LocalDate

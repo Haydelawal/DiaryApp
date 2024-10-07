@@ -1,6 +1,6 @@
-package com.hayde117.diaryapp.model
+package com.hayde117.util.model
 
-import com.hayde117.diaryapp.utils.toRealmInstant
+import com.hayde117.util.toRealmInstant
 import io.realm.kotlin.ext.realmListOf
 import io.realm.kotlin.types.ObjectId
 import io.realm.kotlin.types.RealmInstant

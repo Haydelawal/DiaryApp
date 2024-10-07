@@ -13,7 +13,6 @@ import com.google.firebase.ktx.Firebase
 import com.google.firebase.ktx.initialize
 import com.hayde117.diaryapp.data.database.ImageToDeleteDao
 import com.hayde117.diaryapp.data.database.ImageToUploadDao
-import com.hayde117.diaryapp.navigation.Screen
 import com.hayde117.diaryapp.navigation.SetUpNavGraph
 import com.hayde117.ui.theme.DiaryAppTheme
 import com.hayde117.diaryapp.utils.Constants.APP_ID

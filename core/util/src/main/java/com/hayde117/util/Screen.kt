@@ -1,6 +1,6 @@
-package com.hayde117.diaryapp.navigation
+package com.hayde117.util
 
-import com.hayde117.diaryapp.utils.Constants.WRITE_SCREEN_ARGUMENT_KEY
+import com.hayde117.util.Constants.WRITE_SCREEN_ARGUMENT_KEY
 
 
 sealed class Screen(val route: String) {

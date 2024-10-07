@@ -1,7 +1,6 @@
 package com.hayde117.diaryapp.presentation.screens.home
 
 import android.os.Build
-import android.util.Log
 import androidx.annotation.RequiresApi
 import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.getValue
@@ -11,16 +10,15 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.storage.FirebaseStorage
-import com.hayde117.diaryapp.connectivity.ConnectivityObserver
-import com.hayde117.diaryapp.connectivity.NetworkConnectivityObserver
+import com.hayde117.util.connectivity.ConnectivityObserver
+import com.hayde117.util.connectivity.NetworkConnectivityObserver
 import com.hayde117.diaryapp.data.database.ImageToDeleteDao
 import com.hayde117.diaryapp.data.database.entity.ImageToDelete
 import com.hayde117.diaryapp.data.repository.Diaries
 import com.hayde117.diaryapp.data.repository.MongoDB
-import com.hayde117.diaryapp.model.RequestState
+import com.hayde117.util.model.RequestState
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.FlowPreview
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.cancelAndJoin
 import kotlinx.coroutines.launch

@@ -1,4 +1,4 @@
-package com.hayde117.diaryapp.connectivity
+package com.hayde117.util.connectivity
 
 import kotlinx.coroutines.flow.Flow
 

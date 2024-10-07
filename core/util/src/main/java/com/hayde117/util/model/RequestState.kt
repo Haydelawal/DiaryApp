@@ -1,4 +1,4 @@
-package com.hayde117.diaryapp.model
+package com.hayde117.util.model
 
 sealed class RequestState<out T> {
     object Idle : RequestState<Nothing>()

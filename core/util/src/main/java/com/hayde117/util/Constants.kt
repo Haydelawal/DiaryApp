@@ -1,4 +1,4 @@
-package com.hayde117.diaryapp.utils
+package com.hayde117.util
 
 object Constants {
 

@@ -1,10 +1,8 @@
-package com.hayde117.diaryapp.connectivity
+package com.hayde117.util.connectivity
 
 import android.content.Context
 import android.net.ConnectivityManager
 import android.net.Network
-import android.os.Build
-import androidx.annotation.RequiresApi
 import kotlinx.coroutines.channels.awaitClose
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.callbackFlow
@@ -15,7 +13,6 @@ class NetworkConnectivityObserver(context: Context): ConnectivityObserver {
     private val connectivityManager =
         context.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
 
-    @RequiresApi(Build.VERSION_CODES.N)
     override fun observe(): Flow<ConnectivityObserver.Status> {
         return callbackFlow {
             val callback = object : ConnectivityManager.NetworkCallback() {
