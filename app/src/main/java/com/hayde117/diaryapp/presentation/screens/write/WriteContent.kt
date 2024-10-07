@@ -4,7 +4,6 @@ import android.net.Uri
 import android.widget.Toast
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Spacer
@@ -31,7 +30,6 @@ import androidx.compose.material3.TextFieldDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.rememberCoroutineScope
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.focus.FocusDirection
 import androidx.compose.ui.graphics.Color
@@ -45,7 +43,7 @@ import com.hayde117.diaryapp.model.Diary
 import com.hayde117.diaryapp.model.GalleryImage
 import com.hayde117.diaryapp.model.GalleryState
 import com.hayde117.diaryapp.model.Mood
-import com.hayde117.diaryapp.presentation.components.GalleryUploader
+import com.hayde117.ui.components.GalleryUploader
 import io.realm.kotlin.ext.toRealmList
 import kotlinx.coroutines.launch
 

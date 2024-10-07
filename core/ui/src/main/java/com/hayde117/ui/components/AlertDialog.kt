@@ -1,4 +1,4 @@
-package com.hayde117.diaryapp.presentation.components
+package com.hayde117.ui.components
 
 import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.Button

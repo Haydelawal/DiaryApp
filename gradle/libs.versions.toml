@@ -34,6 +34,9 @@ uiTestManifest = "1.3.1"
 uiToolingPreview = "1.3.2"
 
 composeVersion = "1.3.1"
+kotlinBom = "1.8.0"
+appcompat = "1.7.0"
+material = "1.12.0"
 
 [libraries]
 accompanist-pager = { module = "com.google.accompanist:accompanist-pager", version.ref = "accompanistPager" }
@@ -69,6 +72,9 @@ kotlinx-coroutines-core = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-c
 library-sync = { module = "io.realm.kotlin:library-sync", version.ref = "librarySync" }
 messagebarcompose = { module = "com.github.stevdza-san:MessageBarCompose", version.ref = "messagebarcompose" }
 onetapcompose = { module = "com.github.stevdza-san:OneTapCompose", version.ref = "onetapcompose" }
+kotlin-bom = { group = "org.jetbrains.kotlin", name = "kotlin-bom", version.ref = "kotlinBom" }
+androidx-appcompat = { group = "androidx.appcompat", name = "appcompat", version.ref = "appcompat" }
+material = { group = "com.google.android.material", name = "material", version.ref = "material" }
 
 
 [plugins]

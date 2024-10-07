@@ -1,4 +1,4 @@
-package com.hayde117.diaryapp.ui.theme
+package com.hayde117.ui.theme
 
 import android.app.Activity
 import android.os.Build

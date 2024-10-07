@@ -130,4 +130,8 @@ dependencies {
     // for local date in Diary Holder.kt
     coreLibraryDesugaring(libs.desugar.jdk.libs)
 
+
+    /** multi modular dependencies **/
+    implementation(project(":core:ui"))
+
 }

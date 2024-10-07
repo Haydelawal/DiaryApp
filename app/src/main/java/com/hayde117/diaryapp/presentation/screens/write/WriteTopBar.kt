@@ -25,7 +25,7 @@ import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import com.hayde117.diaryapp.model.Diary
-import com.hayde117.diaryapp.presentation.components.DisplayAlertDialog
+import com.hayde117.ui.components.DisplayAlertDialog
 import com.hayde117.diaryapp.utils.Constants.DATE_FORMAT_1
 import com.hayde117.diaryapp.utils.Constants.DATE_FORMAT_2
 import com.hayde117.diaryapp.utils.Constants.DATE_FORMAT_3

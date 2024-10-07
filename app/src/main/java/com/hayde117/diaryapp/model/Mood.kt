@@ -2,7 +2,22 @@ package com.hayde117.diaryapp.model
 
 import androidx.compose.ui.graphics.Color
 import com.hayde117.diaryapp.R
-import com.hayde117.diaryapp.ui.theme.*
+import com.hayde117.ui.theme.AngryColor
+import com.hayde117.ui.theme.AwfulColor
+import com.hayde117.ui.theme.BoredColor
+import com.hayde117.ui.theme.CalmColor
+import com.hayde117.ui.theme.DepressedColor
+import com.hayde117.ui.theme.DisappointedColor
+import com.hayde117.ui.theme.HappyColor
+import com.hayde117.ui.theme.HumorousColor
+import com.hayde117.ui.theme.LonelyColor
+import com.hayde117.ui.theme.MysteriousColor
+import com.hayde117.ui.theme.NeutralColor
+import com.hayde117.ui.theme.RomanticColor
+import com.hayde117.ui.theme.ShamefulColor
+import com.hayde117.ui.theme.SurprisedColor
+import com.hayde117.ui.theme.SuspiciousColor
+import com.hayde117.ui.theme.TenseColor
 
 enum class Mood(
     val icon: Int,

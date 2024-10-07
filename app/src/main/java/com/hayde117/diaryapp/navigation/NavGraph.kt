@@ -25,9 +25,8 @@ import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.navArgument
-import com.hayde117.diaryapp.model.GalleryImage
 import com.hayde117.diaryapp.model.Mood
-import com.hayde117.diaryapp.presentation.components.DisplayAlertDialog
+import com.hayde117.ui.components.DisplayAlertDialog
 import com.hayde117.diaryapp.presentation.screens.auth.AuthenticationScreen
 import com.hayde117.diaryapp.presentation.screens.auth.AuthenticationViewmodel
 import com.hayde117.diaryapp.presentation.screens.home.HomeScreen
@@ -37,7 +36,6 @@ import com.hayde117.diaryapp.presentation.screens.write.WriteViewModel
 import com.hayde117.diaryapp.utils.Constants.APP_ID
 import com.hayde117.diaryapp.utils.Constants.WRITE_SCREEN_ARGUMENT_KEY
 import com.hayde117.diaryapp.model.RequestState
-import com.hayde117.diaryapp.model.rememberGalleryState
 import com.stevdzasan.messagebar.rememberMessageBarState
 import com.stevdzasan.onetap.rememberOneTapSignInState
 import io.realm.kotlin.mongodb.App

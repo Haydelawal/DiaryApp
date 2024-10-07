@@ -15,7 +15,7 @@ import com.hayde117.diaryapp.data.database.ImageToDeleteDao
 import com.hayde117.diaryapp.data.database.ImageToUploadDao
 import com.hayde117.diaryapp.navigation.Screen
 import com.hayde117.diaryapp.navigation.SetUpNavGraph
-import com.hayde117.diaryapp.ui.theme.DiaryAppTheme
+import com.hayde117.ui.theme.DiaryAppTheme
 import com.hayde117.diaryapp.utils.Constants.APP_ID
 import com.hayde117.diaryapp.utils.retryDeletingImageFromFirebase
 import com.hayde117.diaryapp.utils.retryUploadingImageToFirebase

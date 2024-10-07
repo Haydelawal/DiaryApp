@@ -1,4 +1,4 @@
-package com.hayde117.diaryapp.model
+package com.hayde117.ui
 
 import android.net.Uri
 import androidx.compose.runtime.Composable

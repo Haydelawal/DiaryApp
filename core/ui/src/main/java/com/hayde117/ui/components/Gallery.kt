@@ -1,4 +1,4 @@
-package com.hayde117.diaryapp.presentation.components
+package com.hayde117.ui.components
 
 import android.net.Uri
 import androidx.activity.compose.rememberLauncherForActivityResult
@@ -35,9 +35,9 @@ import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import coil.compose.AsyncImage
 import coil.request.ImageRequest
-import com.hayde117.diaryapp.model.GalleryImage
-import com.hayde117.diaryapp.model.GalleryState
-import com.hayde117.diaryapp.ui.theme.Elevation
+import com.hayde117.ui.GalleryImage
+import com.hayde117.ui.GalleryState
+import com.hayde117.ui.theme.Elevation
 import kotlin.math.max
 
 @Composable
