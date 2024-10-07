@@ -1,4 +1,4 @@
-package com.hayde117.ui.components
+package com.hayde117.util.model
 
 import android.net.Uri
 import androidx.activity.compose.rememberLauncherForActivityResult

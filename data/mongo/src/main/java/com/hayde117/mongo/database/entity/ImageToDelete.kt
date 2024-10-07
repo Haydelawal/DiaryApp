@@ -1,4 +1,4 @@
-package com.hayde117.diaryapp.data.database.entity
+package com.hayde117.mongo.database.entity
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey

@@ -2,9 +2,9 @@ package com.hayde117.diaryapp.di
 
 import android.content.Context
 import androidx.room.Room
-import com.hayde117.util.connectivity.NetworkConnectivityObserver
-import com.hayde117.diaryapp.data.database.ImagesDatabase
+import com.hayde117.mongo.database.ImagesDatabase
 import com.hayde117.util.Constants.IMAGES_DATABASE
+import com.hayde117.util.connectivity.NetworkConnectivityObserver
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn

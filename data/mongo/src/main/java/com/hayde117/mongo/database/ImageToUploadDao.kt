@@ -1,10 +1,10 @@
-package com.hayde117.diaryapp.data.database
+package com.hayde117.mongo.database
 
 import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
-import com.hayde117.diaryapp.data.database.entity.ImageToUpload
+import com.hayde117.mongo.database.entity.ImageToUpload
 
 
 @Dao

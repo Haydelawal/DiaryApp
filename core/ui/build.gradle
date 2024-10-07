@@ -62,9 +62,6 @@ dependencies {
     debugImplementation(libs.androidx.ui.tooling)
     debugImplementation(libs.androidx.ui.test.manifest)
 
-    // Coil
-    implementation(libs.coil.compose)
-
     // Mongo DB Realm
     implementation(libs.kotlinx.coroutines.core)
 
@@ -74,6 +71,6 @@ dependencies {
     // for local date in Diary Holder.kt
     coreLibraryDesugaring(libs.desugar.jdk.libs)
 
-    /** multi modular dependencies **/
-    implementation(project(":core:util"))
+//    /** multi modular dependencies **/
+//    implementation(project(":core:util"))
 }

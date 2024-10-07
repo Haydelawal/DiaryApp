@@ -41,7 +41,7 @@ import coil.compose.AsyncImage
 import coil.request.ImageRequest
 import com.hayde117.ui.GalleryImage
 import com.hayde117.ui.GalleryState
-import com.hayde117.ui.components.GalleryUploader
+import com.hayde117.util.model.GalleryUploader
 import com.hayde117.util.model.Diary
 import com.hayde117.util.model.Mood
 import io.realm.kotlin.ext.toRealmList

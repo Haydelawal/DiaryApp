@@ -1,4 +1,4 @@
-package com.hayde117.diaryapp.data.repository
+package com.hayde117.mongo.repository
 
 import com.hayde117.util.model.Diary
 import com.hayde117.util.Constants.APP_ID

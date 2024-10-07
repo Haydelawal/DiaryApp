@@ -1,4 +1,4 @@
-package com.hayde117.ui.components
+package com.hayde117.util.model
 
 import android.net.Uri
 import android.widget.Toast
@@ -43,8 +43,6 @@ import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.hayde117.util.model.Diary
-import com.hayde117.util.model.Mood
 import com.hayde117.ui.theme.Elevation
 import com.hayde117.util.fetchImagesFromFirebase
 import com.hayde117.util.toInstant

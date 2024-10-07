@@ -1,9 +1,9 @@
-package com.hayde117.diaryapp.data.database
+package com.hayde117.mongo.database
 
 import androidx.room.Database
 import androidx.room.RoomDatabase
-import com.hayde117.diaryapp.data.database.entity.ImageToDelete
-import com.hayde117.diaryapp.data.database.entity.ImageToUpload
+import com.hayde117.mongo.database.entity.ImageToDelete
+import com.hayde117.mongo.database.entity.ImageToUpload
 
 
 @Database(
