@@ -1,0 +1,85 @@
+[versions]
+
+agp = "7.4.0"
+kotlin = "1.7.10"
+hiltAndroid = "2.44"
+googleServices = "4.3.15"
+realmKotlin = "1.0.2"
+
+accompanistPager = "0.27.0"
+activityCompose = "1.6.1"
+coilCompose = "2.2.2"
+core = "1.0.2"
+coreKtx = "1.9.0"
+coreSplashscreen = "1.0.0"
+desugar_jdk_libs = "1.2.0"
+espressoCore = "3.5.1"
+firebaseAuthKtx = "21.1.0"
+firebaseStorageKtx = "20.1.0"
+hiltCompiler = "2.44.2"
+hiltNavigationCompose = "1.0.0"
+junit = "4.13.2"
+junitVersion = "1.1.5"
+kotlinxCoroutinesCore = { strictly = "1.6.0-native-mt" }
+librarySync = "1.0.2"
+lifecycleRuntimeCompose = "2.6.0-alpha04"
+lifecycleRuntimeKtx = "2.5.1"
+material3 = "1.1.0-alpha04"
+messagebarcompose = "1.0.5"
+navigationCompose = "2.5.3"
+onetapcompose = "1.0.0"
+roomKtx = "2.5.0"
+ui = "1.4.0-alpha04"
+uiTestManifest = "1.3.1"
+uiToolingPreview = "1.3.2"
+
+composeVersion = "1.3.1"
+
+[libraries]
+accompanist-pager = { module = "com.google.accompanist:accompanist-pager", version.ref = "accompanistPager" }
+androidx-activity-compose = { module = "androidx.activity:activity-compose", version.ref = "activityCompose" }
+androidx-core-ktx = { module = "androidx.core:core-ktx", version.ref = "coreKtx" }
+androidx-core-splashscreen = { module = "androidx.core:core-splashscreen", version.ref = "coreSplashscreen" }
+androidx-espresso-core = { module = "androidx.test.espresso:espresso-core", version.ref = "espressoCore" }
+androidx-hilt-navigation-compose = { module = "androidx.hilt:hilt-navigation-compose", version.ref = "hiltNavigationCompose" }
+androidx-junit = { module = "androidx.test.ext:junit", version.ref = "junitVersion" }
+androidx-lifecycle-runtime-compose = { module = "androidx.lifecycle:lifecycle-runtime-compose", version.ref = "lifecycleRuntimeCompose" }
+androidx-lifecycle-runtime-ktx = { module = "androidx.lifecycle:lifecycle-runtime-ktx", version.ref = "lifecycleRuntimeKtx" }
+androidx-material3 = { module = "androidx.compose.material3:material3", version.ref = "material3" }
+androidx-navigation-compose = { module = "androidx.navigation:navigation-compose", version.ref = "navigationCompose" }
+androidx-room-compiler = { module = "androidx.room:room-compiler", version.ref = "roomKtx" }
+androidx-room-ktx = { module = "androidx.room:room-ktx", version.ref = "roomKtx" }
+androidx-room-runtime = { module = "androidx.room:room-runtime", version.ref = "roomKtx" }
+androidx-ui = { module = "androidx.compose.ui:ui", version.ref = "ui" }
+androidx-ui-test-junit4 = { module = "androidx.compose.ui:ui-test-junit4", version.ref = "uiTestManifest" }
+androidx-ui-test-manifest = { module = "androidx.compose.ui:ui-test-manifest", version.ref = "uiTestManifest" }
+androidx-ui-tooling = { module = "androidx.compose.ui:ui-tooling", version.ref = "uiTestManifest" }
+androidx-ui-tooling-preview = { module = "androidx.compose.ui:ui-tooling-preview", version.ref = "uiToolingPreview" }
+calendar = { module = "com.maxkeppeler.sheets-compose-dialogs:calendar", version.ref = "core" }
+clock = { module = "com.maxkeppeler.sheets-compose-dialogs:clock", version.ref = "core" }
+coil-compose = { module = "io.coil-kt:coil-compose", version.ref = "coilCompose" }
+core = { module = "com.maxkeppeler.sheets-compose-dialogs:core", version.ref = "core" }
+desugar_jdk_libs = { module = "com.android.tools:desugar_jdk_libs", version.ref = "desugar_jdk_libs" }
+firebase-auth-ktx = { module = "com.google.firebase:firebase-auth-ktx", version.ref = "firebaseAuthKtx" }
+firebase-storage-ktx = { module = "com.google.firebase:firebase-storage-ktx", version.ref = "firebaseStorageKtx" }
+hilt-android = { module = "com.google.dagger:hilt-android", version.ref = "hiltCompiler" }
+hilt-compiler = { module = "com.google.dagger:hilt-compiler", version.ref = "hiltCompiler" }
+junit = { module = "junit:junit", version.ref = "junit" }
+kotlinx-coroutines-core = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-core", version.ref = "kotlinxCoroutinesCore" }
+library-sync = { module = "io.realm.kotlin:library-sync", version.ref = "librarySync" }
+messagebarcompose = { module = "com.github.stevdza-san:MessageBarCompose", version.ref = "messagebarcompose" }
+onetapcompose = { module = "com.github.stevdza-san:OneTapCompose", version.ref = "onetapcompose" }
+
+
+[plugins]
+android-application = { id = "com.android.application", version.ref = "agp" }
+androidLibrary = { id = "com.android.library", version.ref = "agp" }
+
+jetbrains-kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
+google-services = { id = "com.google.gms.google-services", version.ref = "googleServices" }
+
+dagger-hilt = { id = "com.google.dagger.hilt.android", version.ref = "hiltAndroid"}
+realm-kotlin = { id = "io.realm.kotlin", version.ref = "realmKotlin"}
+
+
+###
