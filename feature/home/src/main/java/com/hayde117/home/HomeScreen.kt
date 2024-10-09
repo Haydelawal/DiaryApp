@@ -1,4 +1,4 @@
-package com.hayde117.diaryapp.presentation.screens.home
+package com.hayde117.home
 
 import android.annotation.SuppressLint
 import androidx.compose.foundation.Image

@@ -1,4 +1,4 @@
-package com.hayde117.diaryapp.presentation.screens.home
+package com.hayde117.home
 
 import android.util.Log
 import androidx.compose.foundation.ExperimentalFoundationApi

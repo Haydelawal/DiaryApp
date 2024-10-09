@@ -1,4 +1,4 @@
-package com.hayde117.diaryapp.presentation.screens.home
+package com.hayde117.home
 
 import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.getValue

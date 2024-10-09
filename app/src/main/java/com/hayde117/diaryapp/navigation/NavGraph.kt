@@ -6,16 +6,10 @@ import android.widget.Toast
 import androidx.annotation.RequiresApi
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.pager.rememberPagerState
-import androidx.compose.material3.DrawerValue
-import androidx.compose.material3.rememberDrawerState
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.derivedStateOf
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
-import androidx.compose.runtime.rememberCoroutineScope
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.platform.LocalContext
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavGraphBuilder
@@ -25,20 +19,12 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.navArgument
 import com.hayde117.auth.navigation.authenticationRoute
-import com.hayde117.diaryapp.presentation.screens.home.HomeScreen
-import com.hayde117.diaryapp.presentation.screens.home.HomeViewModel
 import com.hayde117.diaryapp.presentation.screens.write.WriteScreen
 import com.hayde117.diaryapp.presentation.screens.write.WriteViewModel
-import com.hayde117.ui.components.DisplayAlertDialog
-import com.hayde117.util.Constants.APP_ID
+import com.hayde117.home.navigation.homeRoute
 import com.hayde117.util.Constants.WRITE_SCREEN_ARGUMENT_KEY
 import com.hayde117.util.Screen
 import com.hayde117.util.model.Mood
-import com.hayde117.util.model.RequestState
-import io.realm.kotlin.mongodb.App
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
 
 @RequiresApi(Build.VERSION_CODES.N)
 @Composable
@@ -52,6 +38,8 @@ fun SetUpNavGraph(
         navController = navController,
         startDestination = startDestination,
     ) {
+
+        // feature auth module
         authenticationRoute(
             navigateToHome = {
                 navController.popBackStack()
@@ -59,6 +47,8 @@ fun SetUpNavGraph(
             },
             onDataLoaded = onDataLoaded
         )
+
+        // feature home module
         homeRoute(
             navigateToWrite = { navController.navigate(Screen.WRITE.route) },
             navigateToAuth = {
@@ -70,118 +60,13 @@ fun SetUpNavGraph(
                 navController.navigate(Screen.WRITE.passDiaryId(diaryId = it))
             }
         )
+
+        // feature write module
         writeRoute(onBackPressed = {
             navController.popBackStack()
         })
     }
 
-}
-
-@RequiresApi(Build.VERSION_CODES.N)
-fun NavGraphBuilder.homeRoute(
-    navigateToWrite: () -> Unit,
-    navigateToWriteWithArgs: (String) -> Unit,
-    navigateToAuth: () -> Unit,
-    onDataLoaded: () -> Unit,
-) {
-    composable(route = Screen.HOME.route) {
-        val viewModel: HomeViewModel = hiltViewModel()
-        val diaries by viewModel.diaries
-
-        val drawerState = rememberDrawerState(initialValue = DrawerValue.Closed)
-        var signOutDialogOpened by remember {
-            mutableStateOf(false)
-        }
-        var deleteAllDialogOpened by remember { mutableStateOf(false) }
-
-        val context = LocalContext.current
-        val scope = rememberCoroutineScope()
-
-        LaunchedEffect(key1 = diaries) {
-            if (diaries !is RequestState.Loading) {
-                onDataLoaded()
-            }
-        }
-
-        HomeScreen(
-            diaries = diaries,
-            onMenuClicked = {
-                scope.launch(Dispatchers.IO) {
-                    drawerState.open()
-                }
-            }, navigateToWrite = navigateToWrite, drawerState = drawerState, onSignOutClicked = {
-                signOutDialogOpened = true
-            },
-            navigateToWriteWithArgs = navigateToWriteWithArgs,
-            onDeleteAllClicked = {
-                deleteAllDialogOpened = true
-            },
-            dateIsSelected = viewModel.dateIsSelected,
-            onDateSelected = {
-                viewModel.getDiaries(zonedDateTime = it)
-            },
-            onDateReset = {
-                viewModel.getDiaries()
-            }
-        )
-
-        DisplayAlertDialog(
-            title = "Sign Out",
-            message = "Are You Sure You Want To Sign Out From Your Google Account?",
-            dialogOpened = signOutDialogOpened,
-            onDialogClosed = { signOutDialogOpened = false },
-            onYesClicked = {
-                scope.launch(Dispatchers.IO) {
-                    val user = App.create(APP_ID).currentUser
-
-                    if (user != null) {
-                        user.logOut()
-                        withContext(Dispatchers.Main) {
-                            navigateToAuth()
-                        }
-
-                    }
-                }
-            }
-        )
-
-
-        DisplayAlertDialog(
-            title = "Delete All Diaries",
-            message = "Are you sure you want to permanently delete all your diaries?",
-            dialogOpened = deleteAllDialogOpened,
-            onDialogClosed = { deleteAllDialogOpened = false },
-            onYesClicked = {
-                viewModel.deleteAllDiaries(
-                    onSuccess = {
-                        Toast.makeText(
-                            context,
-                            "All Diaries Deleted.",
-                            Toast.LENGTH_SHORT
-                        ).show()
-                        scope.launch {
-                            drawerState.close()
-                        }
-                    },
-                    onError = {
-                        Toast.makeText(
-                            context,
-                            if (it.message == "No Internet Connection.")
-                                "We need an Internet Connection for this operation."
-                            else it.message,
-                            Toast.LENGTH_SHORT
-                        ).show()
-                        scope.launch {
-                            drawerState.close()
-                        }
-                    }
-                )
-            }
-        )
-
-
-
-    }
 }
 
 @OptIn(ExperimentalFoundationApi::class)
