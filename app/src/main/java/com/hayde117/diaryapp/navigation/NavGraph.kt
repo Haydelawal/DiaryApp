@@ -18,27 +18,23 @@ import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.platform.LocalContext
 import androidx.hilt.navigation.compose.hiltViewModel
-import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.NavHostController
 import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.navArgument
-import com.hayde117.util.model.Mood
-import com.hayde117.ui.components.DisplayAlertDialog
-import com.hayde117.diaryapp.presentation.screens.auth.AuthenticationScreen
-import com.hayde117.diaryapp.presentation.screens.auth.AuthenticationViewmodel
+import com.hayde117.auth.navigation.authenticationRoute
 import com.hayde117.diaryapp.presentation.screens.home.HomeScreen
 import com.hayde117.diaryapp.presentation.screens.home.HomeViewModel
 import com.hayde117.diaryapp.presentation.screens.write.WriteScreen
 import com.hayde117.diaryapp.presentation.screens.write.WriteViewModel
+import com.hayde117.ui.components.DisplayAlertDialog
 import com.hayde117.util.Constants.APP_ID
 import com.hayde117.util.Constants.WRITE_SCREEN_ARGUMENT_KEY
 import com.hayde117.util.Screen
+import com.hayde117.util.model.Mood
 import com.hayde117.util.model.RequestState
-import com.stevdzasan.messagebar.rememberMessageBarState
-import com.stevdzasan.onetap.rememberOneTapSignInState
 import io.realm.kotlin.mongodb.App
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -79,59 +75,6 @@ fun SetUpNavGraph(
         })
     }
 
-}
-
-fun NavGraphBuilder.authenticationRoute(
-    navigateToHome: () -> Unit,
-    onDataLoaded: () -> Unit
-) {
-    composable(route = Screen.Authentication.route) {
-
-        val viewmodel: AuthenticationViewmodel = viewModel()
-        val authenticated by viewmodel.authenticated
-
-        val loadingState by viewmodel.loadingState
-        val oneTapState = rememberOneTapSignInState()
-        val messageBarState = rememberMessageBarState()
-
-        LaunchedEffect(key1 = Unit) {
-            onDataLoaded()
-        }
-
-        AuthenticationScreen(
-            authenticated = authenticated,
-            loadingState = loadingState,
-            oneTapState = oneTapState,
-            onButtonClicked = {
-                oneTapState.open()
-                viewmodel.setLoading(true)
-            },
-            messageBarState = messageBarState,
-            onSuccessfulFirebaseSignIn = { tokenId ->
-                viewmodel.signInWithMongoAtlas(
-                    tokenId = tokenId,
-                    onSuccess = {
-                        messageBarState.addSuccess("Successfully Authenticated!")
-                        viewmodel.setLoading(false)
-                    },
-                    onError = {
-                        messageBarState.addError(it)
-                        viewmodel.setLoading(false)
-                    }
-                )
-            },
-            onFailedFirebaseSignIn = {
-                messageBarState.addError(it)
-                viewmodel.setLoading(false)
-            },
-            onDialogDismissed = { message ->
-                messageBarState.addError(Exception(message))
-                viewmodel.setLoading(false)
-            },
-            navigateToHome = navigateToHome
-
-        )
-    }
 }
 
 @RequiresApi(Build.VERSION_CODES.N)

@@ -7,12 +7,11 @@ plugins {
 }
 
 android {
-    namespace 'com.hayde117.util'
-    compileSdk 33
+    namespace 'com.hayde117.auth'
+    compileSdk 34
 
     defaultConfig {
         minSdk 24
-        targetSdk 33
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         consumerProguardFiles "consumer-rules.pro"
@@ -27,14 +26,10 @@ android {
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
-
-        // for local date in Diary Holder.kt
-        coreLibraryDesugaringEnabled true
     }
     kotlinOptions {
         jvmTarget = '1.8'
     }
-
     buildFeatures {
         compose true
     }
@@ -66,26 +61,28 @@ dependencies {
     debugImplementation(libs.androidx.ui.tooling)
     debugImplementation(libs.androidx.ui.test.manifest)
 
+    // Compose Navigation
+    implementation(libs.androidx.navigation.compose)
+
     // Runtime Compose
     implementation(libs.androidx.lifecycle.runtime.compose)
-
-    // Coil
-    implementation(libs.coil.compose)
-
-    // Firebase
-    implementation(libs.firebase.auth.ktx)
-    implementation(libs.firebase.storage.ktx)
 
     // Mongo DB Realm
     implementation(libs.kotlinx.coroutines.core)
 
     implementation(libs.library.sync)
 
-    // Desugar JDK
-    // for local date in Diary Holder.kt
-    coreLibraryDesugaring(libs.desugar.jdk.libs)
+    // Firebase
+    implementation(libs.firebase.auth.ktx)
+
+    // Message Bar Compose
+    implementation(libs.messagebarcompose)
+
+    // One-Tap Compose
+    implementation(libs.onetapcompose)
 
     /** multi modular dependencies **/
     // core
     implementation(project(":core:ui"))
+    implementation(project(":core:util"))
 }

@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="auth_title">Welcome back</string>
+    <string name="auth_subtitle">Please sign in to continue.</string>
+    <string name="hamburger_menu">Hamburger Menu</string>
+    <string name="date_icon">Date Icon</string>
+    <string name="diary">Diary</string>
+    <string name="new_diary_icon">New Diary Icon</string>
+    <string name="logo_image">Logo Image</string>
+</resources>

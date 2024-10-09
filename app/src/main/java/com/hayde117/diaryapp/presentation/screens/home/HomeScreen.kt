@@ -39,7 +39,7 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.LayoutDirection
 import androidx.compose.ui.unit.dp
-import com.hayde117.diaryapp.R
+import com.hayde117.ui.R
 import com.hayde117.mongo.repository.Diaries
 import com.hayde117.util.model.RequestState
 import java.time.ZonedDateTime

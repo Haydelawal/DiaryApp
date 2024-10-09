@@ -1,4 +1,4 @@
-package com.hayde117.diaryapp.presentation.screens.auth
+package com.hayde117.auth
 
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel

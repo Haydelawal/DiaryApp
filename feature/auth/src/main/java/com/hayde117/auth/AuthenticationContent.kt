@@ -1,4 +1,4 @@
-package com.hayde117.diaryapp.presentation.screens.auth
+package com.hayde117.auth
 
 import androidx.compose.runtime.Composable
 import androidx.compose.foundation.Image
@@ -10,7 +10,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
-import com.hayde117.diaryapp.R
+import com.hayde117.ui.R
 import com.hayde117.ui.components.GoogleButton
 
 @Composable

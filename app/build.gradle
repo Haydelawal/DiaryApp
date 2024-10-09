@@ -139,4 +139,7 @@ dependencies {
     // data
     implementation(project(":data:mongo"))
 
+    // feature
+    implementation(project(":feature:auth"))
+
 }

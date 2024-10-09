@@ -1,4 +1,4 @@
-package com.hayde117.diaryapp.presentation.screens.auth
+package com.hayde117.auth
 
 import android.annotation.SuppressLint
 import androidx.compose.foundation.background

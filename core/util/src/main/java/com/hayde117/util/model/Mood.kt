@@ -17,7 +17,7 @@ import com.hayde117.ui.theme.ShamefulColor
 import com.hayde117.ui.theme.SurprisedColor
 import com.hayde117.ui.theme.SuspiciousColor
 import com.hayde117.ui.theme.TenseColor
-import com.hayde117.util.R
+import com.hayde117.ui.R
 
 enum class Mood(
     val icon: Int,
