@@ -11,7 +11,7 @@ import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
-class AuthenticationViewmodel() : ViewModel() {
+internal class AuthenticationViewmodel() : ViewModel() {
 
     var authenticated = mutableStateOf(false)
         private set

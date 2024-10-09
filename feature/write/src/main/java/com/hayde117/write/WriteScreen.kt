@@ -43,7 +43,7 @@ import java.time.ZonedDateTime
 
 @OptIn(ExperimentalMaterial3Api::class, ExperimentalFoundationApi::class)
 @Composable
-fun WriteScreen(
+internal fun WriteScreen(
     uiState: UiState,
     pagerState: PagerState,
     galleryState: GalleryState,
@@ -113,7 +113,7 @@ fun WriteScreen(
 
 
 @Composable
-fun ZoomableImage(
+internal fun ZoomableImage(
     selectedGalleryImage: GalleryImage,
     onCloseClicked: () -> Unit,
     onDeleteClicked: () -> Unit

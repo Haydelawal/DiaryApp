@@ -14,7 +14,7 @@ import com.hayde117.ui.R
 import com.hayde117.ui.components.GoogleButton
 
 @Composable
-fun AuthenticationContent(
+internal fun AuthenticationContent(
     loadingState: Boolean,
     onButtonClicked: () -> Unit
 ) {
