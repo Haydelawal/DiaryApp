@@ -24,8 +24,11 @@ import kotlinx.coroutines.withContext
 import java.time.ZonedDateTime
 import javax.inject.Inject
 
-@HiltViewModel
-internal class HomeViewModel @Inject constructor(
+//@HiltViewModel
+class HomeViewModel
+
+// @Inject constructor
+    (
     private val connectivity: NetworkConnectivityObserver,
     private val imageToDeleteDao: ImageToDeleteDao
 ) : ViewModel() {

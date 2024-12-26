@@ -35,8 +35,12 @@ import kotlinx.coroutines.withContext
 import java.time.ZonedDateTime
 import javax.inject.Inject
 
-@HiltViewModel
-internal class WriteViewModel @Inject constructor(
+// @HiltViewModel
+class WriteViewModel
+
+// @Inject constructor
+
+     (
     private val savedStateHandle: SavedStateHandle,
     private val imageToUploadDao: ImageToUploadDao,
     private val imageToDeleteDao: ImageToDeleteDao

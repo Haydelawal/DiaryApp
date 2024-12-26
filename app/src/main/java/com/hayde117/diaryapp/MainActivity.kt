@@ -27,16 +27,20 @@ import io.realm.kotlin.mongodb.App
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
-import javax.inject.Inject
+import org.koin.android.ext.android.inject
 
-@AndroidEntryPoint
+//@AndroidEntryPoint
 class MainActivity : ComponentActivity() {
 
-    @Inject
-    lateinit var imageToUploadDao: ImageToUploadDao
+//    @Inject
+//    lateinit var imageToUploadDao: ImageToUploadDao
+//
+//    @Inject
+//    lateinit var imageToDeleteDao: ImageToDeleteDao
 
-    @Inject
-    lateinit var imageToDeleteDao: ImageToDeleteDao
+    // Injecting dependencies using Koin
+    private val imageToUploadDao: ImageToUploadDao by inject()
+    private val imageToDeleteDao: ImageToDeleteDao by inject()
 
     private var keepSplashOpened = true
 

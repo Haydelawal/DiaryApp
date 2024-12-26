@@ -17,6 +17,7 @@ import com.hayde117.util.Screen
 import com.hayde117.util.model.Mood
 import com.hayde117.write.WriteScreen
 import com.hayde117.write.WriteViewModel
+import org.koin.androidx.compose.getViewModel
 
 @OptIn(ExperimentalFoundationApi::class)
 fun NavGraphBuilder.writeRoute(
@@ -32,7 +33,10 @@ fun NavGraphBuilder.writeRoute(
         })
     ) {
 
-        val viewModel: WriteViewModel = hiltViewModel()
+       // val viewModel: WriteViewModel = hiltViewModel()
+
+        val viewModel = getViewModel<WriteViewModel>()  // Get HomeViewModel from Koin
+
 
         val uiState = viewModel.uiState
         val galleryState = viewModel.galleryState

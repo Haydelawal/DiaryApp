@@ -102,6 +102,12 @@ dependencies {
     // for local date in Diary Holder.kt
     coreLibraryDesugaring(libs.desugar.jdk.libs)
 
+    // koin
+    implementation (libs.koin.android)
+    implementation (libs.koin.androidx.navigation)
+    implementation (libs.koin.androidx.compose)
+    testImplementation (libs.koin.test.junit4)
+
     /** multi modular dependencies **/
     // core
     implementation(project(":core:ui"))

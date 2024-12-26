@@ -25,6 +25,7 @@ import io.realm.kotlin.mongodb.App
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
+import org.koin.androidx.compose.getViewModel
 
 @RequiresApi(Build.VERSION_CODES.N)
 fun NavGraphBuilder.homeRoute(
@@ -34,7 +35,10 @@ fun NavGraphBuilder.homeRoute(
     onDataLoaded: () -> Unit,
 ) {
     composable(route = Screen.HOME.route) {
-        val viewModel: HomeViewModel = hiltViewModel()
+//        val viewModel: HomeViewModel = hiltViewModel()
+
+        val viewModel = getViewModel<HomeViewModel>()  // Get HomeViewModel from Koin
+
         val diaries by viewModel.diaries
 
         val drawerState = rememberDrawerState(initialValue = DrawerValue.Closed)

@@ -1,5 +1,6 @@
 package com.hayde117.diaryapp.di
 
+import android.app.Application
 import android.content.Context
 import androidx.room.Room
 import com.hayde117.mongo.database.ImagesDatabase
@@ -12,34 +13,51 @@ import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
 import javax.inject.Singleton
 
-@Module
-@InstallIn(SingletonComponent::class)
-object DatabaseModule {
+//@Module
+//@InstallIn(SingletonComponent::class)
+//object DatabaseModule {
+//
+//    @Provides
+//    @Singleton
+//    fun provideDatabase(
+//        @ApplicationContext context: Context
+//    ): ImagesDatabase {
+//        return Room.databaseBuilder(
+//            context = context,
+//            klass = ImagesDatabase::class.java,
+//            name = IMAGES_DATABASE
+//        ).build()
+//    }
+//
+//    @Singleton
+//    @Provides
+//    fun provideFirstDao(database: ImagesDatabase) = database.imageToUploadDao()
+//
+//
+//    @Singleton
+//    @Provides
+//    fun provideSecondDao(database: ImagesDatabase) = database.imageToDeleteDao()
+//
+//    @Singleton
+//    @Provides
+//    fun provideNetworkConnectivityObserver(
+//        @ApplicationContext context: Context
+//    ) = NetworkConnectivityObserver(context = context)
+//}
 
-    @Provides
-    @Singleton
-    fun provideDatabase(
-        @ApplicationContext context: Context
-    ): ImagesDatabase {
-        return Room.databaseBuilder(
-            context = context,
-            klass = ImagesDatabase::class.java,
-            name = IMAGES_DATABASE
+import org.koin.dsl.module
+
+val databaseModule = module {
+    single {
+        Room.databaseBuilder(
+            get<Application>(),  // get() gets the application context
+            ImagesDatabase::class.java,
+            IMAGES_DATABASE
         ).build()
     }
 
-    @Singleton
-    @Provides
-    fun provideFirstDao(database: ImagesDatabase) = database.imageToUploadDao()
+    single { get<ImagesDatabase>().imageToUploadDao() }
+    single { get<ImagesDatabase>().imageToDeleteDao() }
 
-
-    @Singleton
-    @Provides
-    fun provideSecondDao(database: ImagesDatabase) = database.imageToDeleteDao()
-
-    @Singleton
-    @Provides
-    fun provideNetworkConnectivityObserver(
-        @ApplicationContext context: Context
-    ) = NetworkConnectivityObserver(context = context)
+    single { NetworkConnectivityObserver(get<Application>()) }
 }
