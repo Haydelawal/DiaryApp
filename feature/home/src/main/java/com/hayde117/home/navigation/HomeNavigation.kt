@@ -26,6 +26,9 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import org.koin.androidx.compose.getViewModel
+import org.koin.androidx.compose.koinViewModel
+
+//import org.koin.androidx.compose.koinViewModel
 
 @RequiresApi(Build.VERSION_CODES.N)
 fun NavGraphBuilder.homeRoute(
@@ -37,7 +40,9 @@ fun NavGraphBuilder.homeRoute(
     composable(route = Screen.HOME.route) {
 //        val viewModel: HomeViewModel = hiltViewModel()
 
-        val viewModel = getViewModel<HomeViewModel>()  // Get HomeViewModel from Koin
+//        val viewModel = getViewModel<HomeViewModel>()
+        val viewModel: HomeViewModel = koinViewModel()
+        // Get HomeViewModel from Koin
 
         val diaries by viewModel.diaries
 

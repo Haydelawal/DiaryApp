@@ -1,6 +1,7 @@
 package com.hayde117.write.navigation
 
 
+import android.util.Log
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.pager.rememberPagerState
 import androidx.compose.runtime.derivedStateOf
@@ -17,7 +18,12 @@ import com.hayde117.util.Screen
 import com.hayde117.util.model.Mood
 import com.hayde117.write.WriteScreen
 import com.hayde117.write.WriteViewModel
-import org.koin.androidx.compose.getViewModel
+//import org.koin.androidx.compose.getViewModel
+import  android.widget.Toast
+import org.koin.androidx.compose.getStateViewModel
+import org.koin.androidx.compose.koinViewModel
+
+//import org.koin.androidx.compose.koinViewModel
 
 @OptIn(ExperimentalFoundationApi::class)
 fun NavGraphBuilder.writeRoute(
@@ -35,10 +41,13 @@ fun NavGraphBuilder.writeRoute(
 
        // val viewModel: WriteViewModel = hiltViewModel()
 
-        val viewModel = getViewModel<WriteViewModel>()  // Get HomeViewModel from Koin
-
+//        val viewModel = getStateViewModel<WriteViewModel>()
+        val viewModel: WriteViewModel = koinViewModel()  // Get WriteViewModel from Koin
 
         val uiState = viewModel.uiState
+        Log.d("MY_TAG", "writeRoute uiState: ${uiState.selectedDiaryId}")
+
+
         val galleryState = viewModel.galleryState
 
         val pagerState = rememberPagerState()
@@ -50,11 +59,11 @@ fun NavGraphBuilder.writeRoute(
             pagerState = pagerState,
             onDeleteConfirmed = {
                 viewModel.deleteDiary(onSuccess = {
-                    android.widget.Toast.makeText(context, "Deleted", android.widget.Toast.LENGTH_SHORT).show()
+                    Toast.makeText(context, "Deleted", Toast.LENGTH_SHORT).show()
                     onBackPressed()
                 },
                     onError = { message ->
-                        android.widget.Toast.makeText(context, message, android.widget.Toast.LENGTH_SHORT).show()
+                        Toast.makeText(context, message, Toast.LENGTH_SHORT).show()
                     })
             },
             galleryState = galleryState,
@@ -69,7 +78,7 @@ fun NavGraphBuilder.writeRoute(
                     },
                     onSuccess = { onBackPressed() },
                     onError = { message ->
-                        android.widget.Toast.makeText(context, message, android.widget.Toast.LENGTH_SHORT).show()
+                        Toast.makeText(context, message, Toast.LENGTH_SHORT).show()
                     }
                 )
             },

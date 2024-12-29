@@ -62,6 +62,8 @@ class WriteViewModel
                 key = WRITE_SCREEN_ARGUMENT_KEY
             )
         )
+
+        Log.d("MY_TAG", "getDiaryIdArgument: $uiState")
     }
 
     private fun fetchSelectedDiary() {

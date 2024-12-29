@@ -1,6 +1,7 @@
 package com.hayde117.util.model
 
 import android.net.Uri
+import android.util.Log
 import android.widget.Toast
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.core.Spring
@@ -101,7 +102,9 @@ fun DiaryHolder(diary: Diary, onClick: (String) -> Unit) {
             MutableInteractionSource()
         }
 
-    ) { onClick(diary._id.toString()) }) {
+    ) { onClick(diary._id.toString())
+        Log.d("MY_TAG", "DiaryHolder: ${diary._id} ${diary.ownerId}")
+    }) {
 
         Spacer(modifier = Modifier.width(14.dp))
 

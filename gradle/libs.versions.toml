@@ -1,7 +1,9 @@
 [versions]
 
 agp = "7.4.0"
-koinAndroid = "3.2.0-beta-1"
+#koinAndroid = "3.2.0-beta-1"
+# koinAndroid = "3.3.0"
+koinAndroid = "3.4.3"
 kotlin = "1.7.10"
 hiltAndroid = "2.44"
 googleServices = "4.3.15"
