@@ -142,10 +142,3 @@ internal fun EmptyPage(
         )
     }
 }
-
-
-@Preview(showBackground = true)
-@Composable
-fun DateHeaderPreview(){
-    DateHeader(localDate = LocalDate.now())
-}

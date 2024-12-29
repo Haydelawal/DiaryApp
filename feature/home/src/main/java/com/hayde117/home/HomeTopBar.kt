@@ -93,9 +93,3 @@ internal fun HomeTopBar(
     )
 
 }
-
-@Preview(showBackground = true)
-@Composable
-fun GreetingPreview() {
-//        HomeTopBar(onMenuClicked = {})
-}
