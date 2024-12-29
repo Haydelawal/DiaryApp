@@ -23,8 +23,6 @@ import  android.widget.Toast
 import org.koin.androidx.compose.getStateViewModel
 import org.koin.androidx.compose.koinViewModel
 
-//import org.koin.androidx.compose.koinViewModel
-
 @OptIn(ExperimentalFoundationApi::class)
 fun NavGraphBuilder.writeRoute(
     onBackPressed: () -> Unit
@@ -45,8 +43,6 @@ fun NavGraphBuilder.writeRoute(
         val viewModel: WriteViewModel = koinViewModel()  // Get WriteViewModel from Koin
 
         val uiState = viewModel.uiState
-        Log.d("MY_TAG", "writeRoute uiState: ${uiState.selectedDiaryId}")
-
 
         val galleryState = viewModel.galleryState
 
@@ -86,7 +82,7 @@ fun NavGraphBuilder.writeRoute(
             onImageSelect = {
                 val type = context.contentResolver.getType(it)?.split("/")?.last() ?: "jpg"
 
-                android.util.Log.d("aaa", "writeRoute: uri $it")
+                Log.d("aaa", "writeRoute: uri $it")
 
                 viewModel.addImage(
                     image = it,

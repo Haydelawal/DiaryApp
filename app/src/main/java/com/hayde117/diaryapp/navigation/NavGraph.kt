@@ -1,8 +1,5 @@
 package com.hayde117.diaryapp.navigation
 
-import android.os.Build
-import android.util.Log
-import androidx.annotation.RequiresApi
 import androidx.compose.runtime.Composable
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
@@ -41,9 +38,6 @@ fun SetUpNavGraph(
             },
             onDataLoaded = onDataLoaded,
             navigateToWriteWithArgs = {
-
-                Log.d("MY_TAG", "passDiaryId: $it")
-
                 navController.navigate(Screen.WRITE.passDiaryId(diaryId = it))
             }
         )

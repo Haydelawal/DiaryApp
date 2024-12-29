@@ -103,7 +103,6 @@ fun DiaryHolder(diary: Diary, onClick: (String) -> Unit) {
         }
 
     ) { onClick(diary._id.toString())
-        Log.d("MY_TAG", "DiaryHolder: ${diary._id} ${diary.ownerId}")
     }) {
 
         Spacer(modifier = Modifier.width(14.dp))
